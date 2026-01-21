@@ -6,7 +6,18 @@ using System.Threading.Tasks;
 
 namespace Dominio
 {
-    internal class CierreCaja
+    public class CierreCaja
     {
+         public int IdCierreCaja { get; set; }
+        public DateTime FechaInicio { get; set; }
+        public DateTime FechaFin { get; set; }
+        public int CantidadServicio { get; set; }
+
+
+
+
+
+
+
     }
 }

@@ -8,11 +8,11 @@ namespace Dominio
 {
     public class TipoServicio
     {
+        public int IdTipoServicio { get; set; }
         public int TipoServico { get; set; }
         public decimal PrecioServicio { get; set; }
 
-        public string Observacion { get; set; }
-       public Servicio Servicio { get; set; }
+        public string Servicio { get; set; }
         public bool Activo { get; set; }
 
 

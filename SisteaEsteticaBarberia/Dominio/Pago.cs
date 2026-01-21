@@ -6,7 +6,16 @@ using System.Threading.Tasks;
 
 namespace Dominio
 {
-    internal class Pago
+    public class Pago
     {
+        public int IdPago { get; set; }
+        public string TipoPago { get; set; }
+        public decimal Importe { get; set; }
+        public DateTime FechaHora {  get; set; }    
+        public Servicio Servicio{ get; set; }
+
+
+
+
     }
 }

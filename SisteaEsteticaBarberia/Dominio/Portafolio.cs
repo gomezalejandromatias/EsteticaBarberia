@@ -6,7 +6,18 @@ using System.Threading.Tasks;
 
 namespace Dominio
 {
-    internal class Portafolio
+    public  class Portafolio
     {
+        public int IdPortafolio {  get; set; }
+        public string UrlImagen { get; set; }
+        public string Titulo {  get; set; }
+        public bool Activo {  get; set; }
+        public TipoServicio TipoServicio { get; set; }
+
+
+
+
+
+
     }
 }

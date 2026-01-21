@@ -6,7 +6,17 @@ using System.Threading.Tasks;
 
 namespace Dominio
 {
-    internal class Producto
+    public  class Producto
     {
+        public int IdProducto { get; set; }
+        public string Nombre { get; set; }
+        public string Categoria { get; set; }
+        public int StockActual { get; set; }
+        public DateTime? FechaVencimiento { get; set; }
+        public bool Activo { get; set; } = true;
+
+
+
+
     }
 }

@@ -1,9 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36401.2 d17.14
+VisualStudioVersion = 17.14.36401.2
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SisteaEsteticaBarberia", "SisteaEsteticaBarberia\SisteaEsteticaBarberia.csproj", "{B224FD40-4A33-4506-9927-C1B441243CFD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SistemaEsteticaBarberia", "SisteaEsteticaBarberia\SistemaEsteticaBarberia.csproj", "{B224FD40-4A33-4506-9927-C1B441243CFD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dominio", "Dominio\Dominio.csproj", "{80A514C9-05E8-4032-9DFC-E73E6762FF7C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Negocio", "Negocio\Negocio.csproj", "{87604D9F-429E-4D72-B87C-3C19CAA89983}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{B224FD40-4A33-4506-9927-C1B441243CFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B224FD40-4A33-4506-9927-C1B441243CFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B224FD40-4A33-4506-9927-C1B441243CFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80A514C9-05E8-4032-9DFC-E73E6762FF7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80A514C9-05E8-4032-9DFC-E73E6762FF7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80A514C9-05E8-4032-9DFC-E73E6762FF7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80A514C9-05E8-4032-9DFC-E73E6762FF7C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87604D9F-429E-4D72-B87C-3C19CAA89983}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87604D9F-429E-4D72-B87C-3C19CAA89983}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87604D9F-429E-4D72-B87C-3C19CAA89983}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87604D9F-429E-4D72-B87C-3C19CAA89983}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
