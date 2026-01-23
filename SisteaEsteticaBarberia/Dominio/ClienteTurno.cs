@@ -13,12 +13,14 @@ namespace Dominio
         public int IdClienteTurno { get; set; }
       public Cliente Cliente { get; set; }
         public Turno Turno { get; set; }
+        public TipoServicio TipoServicio { get; set; }
 
 
         public ClienteTurno()
         {
             Cliente = new Cliente();
             Turno = new Turno();
+            TipoServicio = new TipoServicio();
         }
 
 

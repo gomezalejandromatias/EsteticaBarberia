@@ -148,8 +148,10 @@ namespace SisteaEsteticaBarberia
         }
         private void SeleccionarCombobox()
         {
-              
-            
+            TipoServicio tipoServicio = new TipoServicio();
+            seleccionado = (TipoServicio)cbTipoServicio.SelectedItem;
+
+            tipoServicio.Servicio = seleccionado.ToString();
 
 
 

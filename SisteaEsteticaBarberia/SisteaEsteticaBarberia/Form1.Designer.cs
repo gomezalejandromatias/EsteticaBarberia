@@ -53,6 +53,7 @@
             this.cbTipoServicio = new System.Windows.Forms.ComboBox();
             this.dtpHoraInicio = new System.Windows.Forms.DateTimePicker();
             this.dtpHoraFin = new System.Windows.Forms.DateTimePicker();
+            this.btnSeleccionServicio = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVerTurno)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCliente)).BeginInit();
             this.SuspendLayout();
@@ -179,7 +180,6 @@
             this.dtpHoraInicioTurno.DropDownAlign = System.Windows.Forms.LeftRightAlignment.Right;
             this.dtpHoraInicioTurno.Location = new System.Drawing.Point(554, 640);
             this.dtpHoraInicioTurno.Name = "dtpHoraInicioTurno";
-            this.dtpHoraInicioTurno.ShowUpDown = true;
             this.dtpHoraInicioTurno.Size = new System.Drawing.Size(212, 20);
             this.dtpHoraInicioTurno.TabIndex = 16;
             // 
@@ -268,11 +268,21 @@
             this.dtpHoraFin.Size = new System.Drawing.Size(89, 20);
             this.dtpHoraFin.TabIndex = 27;
             // 
+            // btnSeleccionServicio
+            // 
+            this.btnSeleccionServicio.Location = new System.Drawing.Point(199, 672);
+            this.btnSeleccionServicio.Name = "btnSeleccionServicio";
+            this.btnSeleccionServicio.Size = new System.Drawing.Size(167, 23);
+            this.btnSeleccionServicio.TabIndex = 28;
+            this.btnSeleccionServicio.Text = "Seleccionar Servicio";
+            this.btnSeleccionServicio.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1499, 728);
+            this.Controls.Add(this.btnSeleccionServicio);
             this.Controls.Add(this.dtpHoraFin);
             this.Controls.Add(this.dtpHoraInicio);
             this.Controls.Add(this.cbTipoServicio);
@@ -336,6 +346,7 @@
         private System.Windows.Forms.ComboBox cbTipoServicio;
         private System.Windows.Forms.DateTimePicker dtpHoraInicio;
         private System.Windows.Forms.DateTimePicker dtpHoraFin;
+        private System.Windows.Forms.Button btnSeleccionServicio;
     }
 }
 
