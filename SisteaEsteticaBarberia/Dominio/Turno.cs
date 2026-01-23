@@ -10,10 +10,10 @@ namespace Dominio
     {
 
         public int IdTurno { get; set; }
-        public DateTime FechaTurno { get; set; }
+    
         public string Estado {  get; set; }
-        public TimeSpan HoraInicio { get; set; }
-        public TimeSpan HoraFin {  get; set; }
+        public DateTime Inicio { get; set; }
+        public DateTime Fin { get; set; }
         public  Cliente cliente { get; set; }
         
         public bool Activo { get; set; }

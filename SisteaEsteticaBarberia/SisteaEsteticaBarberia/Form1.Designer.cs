@@ -38,7 +38,6 @@
             this.txtEmail = new System.Windows.Forms.TextBox();
             this.txtTelefono = new System.Windows.Forms.TextBox();
             this.btnAgregarCliente = new System.Windows.Forms.Button();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.dtpHoraVerTurnos = new System.Windows.Forms.DateTimePicker();
             this.dgvVerTurno = new System.Windows.Forms.DataGridView();
             this.lblTurno = new System.Windows.Forms.Label();
@@ -48,11 +47,12 @@
             this.lblFinTurno = new System.Windows.Forms.Label();
             this.dtpHoraFinTurno = new System.Windows.Forms.DateTimePicker();
             this.btnAgregarTurno = new System.Windows.Forms.Button();
-            this.menuStrip2 = new System.Windows.Forms.MenuStrip();
             this.lblSinTurno = new System.Windows.Forms.Label();
             this.dgvCliente = new System.Windows.Forms.DataGridView();
             this.lblCliente = new System.Windows.Forms.Label();
             this.cbTipoServicio = new System.Windows.Forms.ComboBox();
+            this.dtpHoraInicio = new System.Windows.Forms.DateTimePicker();
+            this.dtpHoraFin = new System.Windows.Forms.DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVerTurno)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCliente)).BeginInit();
             this.SuspendLayout();
@@ -140,14 +140,6 @@
             this.btnAgregarCliente.UseVisualStyleBackColor = true;
             this.btnAgregarCliente.Click += new System.EventHandler(this.btnAgregarCliente_Click);
             // 
-            // menuStrip1
-            // 
-            this.menuStrip1.Location = new System.Drawing.Point(0, 24);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1412, 24);
-            this.menuStrip1.TabIndex = 10;
-            this.menuStrip1.Text = "menuStrip1";
-            // 
             // dtpHoraVerTurnos
             // 
             this.dtpHoraVerTurnos.Location = new System.Drawing.Point(345, 98);
@@ -184,8 +176,10 @@
             // 
             // dtpHoraInicioTurno
             // 
-            this.dtpHoraInicioTurno.Location = new System.Drawing.Point(565, 637);
+            this.dtpHoraInicioTurno.DropDownAlign = System.Windows.Forms.LeftRightAlignment.Right;
+            this.dtpHoraInicioTurno.Location = new System.Drawing.Point(554, 640);
             this.dtpHoraInicioTurno.Name = "dtpHoraInicioTurno";
+            this.dtpHoraInicioTurno.ShowUpDown = true;
             this.dtpHoraInicioTurno.Size = new System.Drawing.Size(212, 20);
             this.dtpHoraInicioTurno.TabIndex = 16;
             // 
@@ -201,7 +195,7 @@
             // lblFinTurno
             // 
             this.lblFinTurno.AutoSize = true;
-            this.lblFinTurno.Location = new System.Drawing.Point(885, 590);
+            this.lblFinTurno.Location = new System.Drawing.Point(1014, 590);
             this.lblFinTurno.Name = "lblFinTurno";
             this.lblFinTurno.Size = new System.Drawing.Size(146, 13);
             this.lblFinTurno.TabIndex = 18;
@@ -209,27 +203,20 @@
             // 
             // dtpHoraFinTurno
             // 
-            this.dtpHoraFinTurno.Location = new System.Drawing.Point(888, 637);
+            this.dtpHoraFinTurno.Location = new System.Drawing.Point(986, 640);
             this.dtpHoraFinTurno.Name = "dtpHoraFinTurno";
             this.dtpHoraFinTurno.Size = new System.Drawing.Size(200, 20);
             this.dtpHoraFinTurno.TabIndex = 19;
             // 
             // btnAgregarTurno
             // 
-            this.btnAgregarTurno.Location = new System.Drawing.Point(1154, 638);
+            this.btnAgregarTurno.Location = new System.Drawing.Point(1337, 639);
             this.btnAgregarTurno.Name = "btnAgregarTurno";
             this.btnAgregarTurno.Size = new System.Drawing.Size(150, 23);
             this.btnAgregarTurno.TabIndex = 20;
             this.btnAgregarTurno.Text = "Agregar Turno";
             this.btnAgregarTurno.UseVisualStyleBackColor = true;
-            // 
-            // menuStrip2
-            // 
-            this.menuStrip2.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip2.Name = "menuStrip2";
-            this.menuStrip2.Size = new System.Drawing.Size(1412, 24);
-            this.menuStrip2.TabIndex = 21;
-            this.menuStrip2.Text = "menuStrip2";
+            this.btnAgregarTurno.Click += new System.EventHandler(this.btnAgregarTurno_Click);
             // 
             // lblSinTurno
             // 
@@ -265,11 +252,29 @@
             this.cbTipoServicio.Size = new System.Drawing.Size(167, 21);
             this.cbTipoServicio.TabIndex = 25;
             // 
+            // dtpHoraInicio
+            // 
+            this.dtpHoraInicio.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.dtpHoraInicio.Location = new System.Drawing.Point(792, 640);
+            this.dtpHoraInicio.Name = "dtpHoraInicio";
+            this.dtpHoraInicio.Size = new System.Drawing.Size(80, 20);
+            this.dtpHoraInicio.TabIndex = 26;
+            // 
+            // dtpHoraFin
+            // 
+            this.dtpHoraFin.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.dtpHoraFin.Location = new System.Drawing.Point(1209, 640);
+            this.dtpHoraFin.Name = "dtpHoraFin";
+            this.dtpHoraFin.Size = new System.Drawing.Size(89, 20);
+            this.dtpHoraFin.TabIndex = 27;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1412, 728);
+            this.ClientSize = new System.Drawing.Size(1499, 728);
+            this.Controls.Add(this.dtpHoraFin);
+            this.Controls.Add(this.dtpHoraInicio);
             this.Controls.Add(this.cbTipoServicio);
             this.Controls.Add(this.lblCliente);
             this.Controls.Add(this.dgvCliente);
@@ -293,9 +298,6 @@
             this.Controls.Add(this.lblNombre);
             this.Controls.Add(this.lblDni);
             this.Controls.Add(this.lblTitulo);
-            this.Controls.Add(this.menuStrip1);
-            this.Controls.Add(this.menuStrip2);
-            this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "Form1";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
@@ -319,7 +321,6 @@
         private System.Windows.Forms.TextBox txtEmail;
         private System.Windows.Forms.TextBox txtTelefono;
         private System.Windows.Forms.Button btnAgregarCliente;
-        private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.DateTimePicker dtpHoraVerTurnos;
         private System.Windows.Forms.DataGridView dgvVerTurno;
         private System.Windows.Forms.Label lblTurno;
@@ -329,11 +330,12 @@
         private System.Windows.Forms.Label lblFinTurno;
         private System.Windows.Forms.DateTimePicker dtpHoraFinTurno;
         private System.Windows.Forms.Button btnAgregarTurno;
-        private System.Windows.Forms.MenuStrip menuStrip2;
         private System.Windows.Forms.Label lblSinTurno;
         private System.Windows.Forms.DataGridView dgvCliente;
         private System.Windows.Forms.Label lblCliente;
         private System.Windows.Forms.ComboBox cbTipoServicio;
+        private System.Windows.Forms.DateTimePicker dtpHoraInicio;
+        private System.Windows.Forms.DateTimePicker dtpHoraFin;
     }
 }
 

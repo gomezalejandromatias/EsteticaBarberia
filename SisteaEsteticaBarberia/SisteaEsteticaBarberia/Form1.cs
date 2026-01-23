@@ -13,10 +13,19 @@ namespace SisteaEsteticaBarberia
 {
     public partial class Form1 : Form
     { 
-       public List<Turno>turnos = new List<Turno>();
+      public List<Turno>turnos = new List<Turno>();
 
         public List<Cliente> listacliente = new List<Cliente>();
         public Cliente Cliente;
+      
+        public TipoServicio seleccionado;
+
+        public Turno Turno;
+
+        ClienteTurno ClienteTurno;
+
+        public List<ClienteTurno> listaturnocliente =  new List<ClienteTurno>();
+
         public Form1()
         {
             InitializeComponent();
@@ -29,6 +38,8 @@ namespace SisteaEsteticaBarberia
             lblSinTurno.Visible = false;
             CargarGrillaCliente();
             CargarComboBox();
+
+            
         }
 
 
@@ -62,7 +73,7 @@ namespace SisteaEsteticaBarberia
 
             
             
-                listafiltrada = turnos.Where(f => f.FechaTurno.Date == TomarFecha).ToList();
+                listafiltrada = turnos.Where(f => f.Inicio.Date == TomarFecha).ToList();
 
 
             
@@ -135,7 +146,44 @@ namespace SisteaEsteticaBarberia
 
 
         }
+        private void SeleccionarCombobox()
+        {
+              
+            
+
+
+
+        }
+
+        private void btnAgregarTurno_Click(object sender, EventArgs e)
+        {
 
         
+                          
+
+
+            ClienteTurno = new ClienteTurno();
+  
+
+            ClienteTurno.Cliente.Dni = txtDni.Text;
+            ClienteTurno.Cliente.Nombre = txtNombre.Text;
+            ClienteTurno.Cliente.Email = txtEmail.Text; 
+            ClienteTurno.Cliente.Telefono = txtTelefono.Text;
+
+            ClienteTurno.Turno.Inicio = dtpHoraInicioTurno.Value.Date
+             + dtpHoraInicio.Value.TimeOfDay;
+
+            ClienteTurno.Turno.Fin = dtpHoraFinTurno.Value.Date
+                      + dtpHoraFin.Value.TimeOfDay;
+
+
+            listaturnocliente.Add(ClienteTurno);
+
+            dgvVerTurno.DataSource = null;
+            dgvVerTurno.DataSource = listaturnocliente;
+
+        }
+
+    
     }
 }
