@@ -13,14 +13,15 @@ namespace Dominio
         public int IdClienteTurno { get; set; }
       public Cliente Cliente { get; set; }
         public Turno Turno { get; set; }
-        public TipoServicio TipoServicio { get; set; }
+
+        public List<Servicio> servicios = new List<Servicio>(); 
 
 
         public ClienteTurno()
         {
             Cliente = new Cliente();
             Turno = new Turno();
-            TipoServicio = new TipoServicio();
+            
         }
 
 
@@ -48,6 +49,33 @@ namespace Dominio
 
 
         }
+        public string ServiciosTexto
+        {
+            get
+            {
+                if (servicios == null || servicios.Count == 0)
+                    return "";
+
+                string texto = "";
+
+                for (int i = 0; i < servicios.Count; i++)
+                {
+                    texto += servicios[i].ServiciosTexto;
+
+                    if (i < servicios.Count - 1)
+                        texto += " | ";
+                }
+
+                return texto;
+            }
+        }
+
+
+
+
+
+
+
 
     }
 }

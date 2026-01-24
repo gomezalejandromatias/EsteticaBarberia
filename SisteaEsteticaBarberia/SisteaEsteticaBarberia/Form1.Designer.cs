@@ -54,6 +54,7 @@
             this.dtpHoraInicio = new System.Windows.Forms.DateTimePicker();
             this.dtpHoraFin = new System.Windows.Forms.DateTimePicker();
             this.btnSeleccionServicio = new System.Windows.Forms.Button();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVerTurno)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCliente)).BeginInit();
             this.SuspendLayout();
@@ -276,6 +277,15 @@
             this.btnSeleccionServicio.TabIndex = 28;
             this.btnSeleccionServicio.Text = "Seleccionar Servicio";
             this.btnSeleccionServicio.UseVisualStyleBackColor = true;
+            this.btnSeleccionServicio.Click += new System.EventHandler(this.btnSeleccionServicio_Click);
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(1499, 24);
+            this.menuStrip1.TabIndex = 29;
+            this.menuStrip1.Text = "menuStrip1";
             // 
             // Form1
             // 
@@ -308,6 +318,8 @@
             this.Controls.Add(this.lblNombre);
             this.Controls.Add(this.lblDni);
             this.Controls.Add(this.lblTitulo);
+            this.Controls.Add(this.menuStrip1);
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "Form1";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
@@ -347,6 +359,7 @@
         private System.Windows.Forms.DateTimePicker dtpHoraInicio;
         private System.Windows.Forms.DateTimePicker dtpHoraFin;
         private System.Windows.Forms.Button btnSeleccionServicio;
+        private System.Windows.Forms.MenuStrip menuStrip1;
     }
 }
 

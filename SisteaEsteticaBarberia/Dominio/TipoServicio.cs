@@ -9,14 +9,17 @@ namespace Dominio
     public class TipoServicio
     {
         public int IdTipoServicio { get; set; }
-        public int TipoServico { get; set; }
+       
         public decimal PrecioServicio { get; set; }
 
         public string Servicio { get; set; }
         public bool Activo { get; set; }
 
 
-
+        public override string ToString()
+        {
+            return Servicio ;
+        }
 
     }
 }

@@ -16,9 +16,11 @@ namespace SisteaEsteticaBarberia
       public List<Turno>turnos = new List<Turno>();
 
         public List<Cliente> listacliente = new List<Cliente>();
+
         public Cliente Cliente;
       
         public TipoServicio seleccionado;
+        
 
         public Turno Turno;
 
@@ -33,7 +35,7 @@ namespace SisteaEsteticaBarberia
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            CargarGrilla();
+           // CargarGrilla();
 
             lblSinTurno.Visible = false;
             CargarGrillaCliente();
@@ -98,7 +100,7 @@ namespace SisteaEsteticaBarberia
 
         private void btnAgregarCliente_Click(object sender, EventArgs e)
         {
-
+            ClienteNegocio clienteNegocio = new ClienteNegocio();
             Cliente = new Cliente();
             try
             {
@@ -107,7 +109,10 @@ namespace SisteaEsteticaBarberia
             Cliente.Email = txtEmail.Text;
             Cliente.Telefono = txtTelefono.Text;
 
+                clienteNegocio.AgregarCliente(Cliente);
                 MessageBox.Show("Cliente Agregado Con Exito");
+
+                
 
             }
             catch (Exception ex)
@@ -126,10 +131,10 @@ namespace SisteaEsteticaBarberia
 
         public void CargarGrillaCliente()
         {
-
+           ClienteNegocio cliente = new ClienteNegocio();
 
             dgvCliente.DataSource = null;
-            dgvCliente.DataSource = listacliente;
+            dgvCliente.DataSource = cliente.ListaCliente();
 
 
 
@@ -146,16 +151,7 @@ namespace SisteaEsteticaBarberia
 
 
         }
-        private void SeleccionarCombobox()
-        {
-            TipoServicio tipoServicio = new TipoServicio();
-            seleccionado = (TipoServicio)cbTipoServicio.SelectedItem;
-
-            tipoServicio.Servicio = seleccionado.ToString();
-
-
-
-        }
+  
 
         private void btnAgregarTurno_Click(object sender, EventArgs e)
         {
@@ -165,12 +161,15 @@ namespace SisteaEsteticaBarberia
 
 
             ClienteTurno = new ClienteTurno();
-  
+            Servicio nuevo = new Servicio();
+            nuevo.tipoServicios.Add(seleccionado);
 
             ClienteTurno.Cliente.Dni = txtDni.Text;
             ClienteTurno.Cliente.Nombre = txtNombre.Text;
             ClienteTurno.Cliente.Email = txtEmail.Text; 
             ClienteTurno.Cliente.Telefono = txtTelefono.Text;
+
+            ClienteTurno.servicios.Add(nuevo);
 
             ClienteTurno.Turno.Inicio = dtpHoraInicioTurno.Value.Date
              + dtpHoraInicio.Value.TimeOfDay;
@@ -184,8 +183,15 @@ namespace SisteaEsteticaBarberia
             dgvVerTurno.DataSource = null;
             dgvVerTurno.DataSource = listaturnocliente;
 
+            dgvVerTurno.DataSource = null;
+            dgvVerTurno.DataSource= listaturnocliente;
+
         }
 
-    
+        private void btnSeleccionServicio_Click(object sender, EventArgs e)
+        {
+           seleccionado = (TipoServicio)cbTipoServicio.SelectedItem;
+
+        }
     }
 }
