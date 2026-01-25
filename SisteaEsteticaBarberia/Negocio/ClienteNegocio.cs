@@ -16,7 +16,7 @@ namespace Negocio
 
             AccesoDatos accesoDatos = new AccesoDatos();
             accesoDatos.SetearConsulta(
-           "SELECT IdCliente, Nombre, Dni, Telefono, Email, Activo " +
+           "SELECT  IdCliente, Nombre, Dni, Telefono, Email, Activo " +
            "FROM Cliente " +
            "WHERE Activo = 1"
        );
@@ -75,12 +75,13 @@ namespace Negocio
             {
 
 
-                accesoDatos.SetearConsulta("insert into Cliente (Nombre,Dni,Telefono,Email) Values (@Nombre,@Dni,@Telefono,@Email ");
+                accesoDatos.SetearConsulta("insert into Cliente (Nombre,Dni,Telefono,Email) Values (@Nombre,@Dni,@Telefono,@Email)");
 
                 accesoDatos.SetearParametro("@Nombre",cliente.Nombre);
                 accesoDatos.SetearParametro("@Dni",cliente.Dni);
                 accesoDatos.SetearParametro("@Telefono",cliente.Telefono);
                 accesoDatos.SetearParametro("@Email",cliente.Email);
+                
 
                 accesoDatos.EjecutarAccion();
 

@@ -15,7 +15,7 @@ namespace SisteaEsteticaBarberia
     { 
       public List<Turno>turnos = new List<Turno>();
 
-        public List<Cliente> listacliente = new List<Cliente>();
+      ///  public List<Cliente> listacliente = new List<Cliente>();
 
         public Cliente Cliente;
       
@@ -26,7 +26,7 @@ namespace SisteaEsteticaBarberia
 
         ClienteTurno ClienteTurno;
 
-        public List<ClienteTurno> listaturnocliente =  new List<ClienteTurno>();
+       public List<ClienteTurno> listaturnocliente =  new List<ClienteTurno>();
 
         public Form1()
         {
@@ -122,7 +122,7 @@ namespace SisteaEsteticaBarberia
             }
 
 
-            listacliente.Add(Cliente);
+            
 
 
             CargarGrillaCliente();
@@ -136,7 +136,8 @@ namespace SisteaEsteticaBarberia
             dgvCliente.DataSource = null;
             dgvCliente.DataSource = cliente.ListaCliente();
 
-
+            dgvCliente.Columns["IdCliente"].Visible = false;
+            dgvCliente.Columns["Activo"].Visible = false;
 
         }
         private void CargarComboBox()

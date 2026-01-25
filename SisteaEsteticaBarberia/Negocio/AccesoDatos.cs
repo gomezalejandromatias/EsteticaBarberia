@@ -27,7 +27,7 @@ namespace Negocio
         {
 
 
-            conexion = new SqlConnection("Server=.\\SQLEXPRESS02;Database=ComidasRapidasDB;Integrated Security=true;");
+            conexion = new SqlConnection("Server=.\\SQLEXPRESS02;Database=EsteticaBarberiaDB;;Integrated Security=true;");
             comando = new SqlCommand();
 
 
@@ -36,7 +36,7 @@ namespace Negocio
 
         public void SetearConsulta(string consulta)
         {
-
+            comando.Parameters.Clear();
             comando.CommandType = System.Data.CommandType.Text;
 
             comando.CommandText = consulta;
