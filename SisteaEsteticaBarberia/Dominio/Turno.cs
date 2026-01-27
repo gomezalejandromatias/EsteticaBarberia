@@ -15,6 +15,7 @@ namespace Dominio
         public DateTime Inicio { get; set; }
         public DateTime Fin { get; set; }
         public  Cliente cliente { get; set; }
+        public List<ClienteTurno> clienteTurnos = new List<ClienteTurno>();
         
         public bool Activo { get; set; }
 

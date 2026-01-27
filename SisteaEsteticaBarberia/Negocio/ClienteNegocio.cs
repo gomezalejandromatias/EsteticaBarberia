@@ -24,15 +24,22 @@ namespace Negocio
 
             try
             {
-                Cliente aux = new Cliente();
 
                 while (accesoDatos.Lector.Read())
                 {
+                   Cliente aux = new Cliente();
                     aux.IdCliente = (int)accesoDatos.Lector["IdCliente"];
                     aux.Nombre = (string)accesoDatos.Lector["Nombre"];
                     aux.Dni = (string)accesoDatos.Lector["Dni"];
-                    aux.Email = (string)accesoDatos.Lector["Email"];
-                    aux.Telefono = (string)accesoDatos.Lector["Telefono"];
+
+                    aux.Email = accesoDatos.Lector["Email"] == DBNull.Value
+                        ? ""
+                        : (string)accesoDatos.Lector["Email"];
+
+                    aux.Telefono = accesoDatos.Lector["Telefono"] == DBNull.Value
+                        ? ""
+                        : (string)accesoDatos.Lector["Telefono"];
+
                     aux.Activo = (bool)accesoDatos.Lector["Activo"];
 
 

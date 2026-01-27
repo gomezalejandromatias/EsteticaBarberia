@@ -20,7 +20,7 @@ namespace Dominio
         public ClienteTurno()
         {
             Cliente = new Cliente();
-            Turno = new Turno();
+            
             
         }
 
