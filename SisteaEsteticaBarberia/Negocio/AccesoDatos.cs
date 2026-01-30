@@ -67,10 +67,9 @@ namespace Negocio
                 conexion.Open();
                 comando.ExecuteNonQuery();
             }
-            catch (Exception ex)
+            finally
             {
-
-                throw ex;
+                conexion.Close();
             }
 
         }
@@ -78,8 +77,15 @@ namespace Negocio
         public object EjecutarEscalar()
         {
             comando.Connection = conexion;
-            conexion.Open();
-            return comando.ExecuteScalar();
+            try
+            {
+                conexion.Open();
+                return comando.ExecuteScalar();
+            }
+            finally
+            {
+                conexion.Close();
+            }
         }
 
         public void SetearParametro(string nombre, object valor)

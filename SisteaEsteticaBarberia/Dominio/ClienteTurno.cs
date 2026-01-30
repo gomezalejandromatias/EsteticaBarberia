@@ -21,7 +21,7 @@ namespace Dominio
         {
             Cliente = new Cliente();
             
-            
+            Turno = new Turno();
         }
 
 

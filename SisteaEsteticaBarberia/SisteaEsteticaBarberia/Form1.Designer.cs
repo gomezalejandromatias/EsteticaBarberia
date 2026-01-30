@@ -55,6 +55,13 @@
             this.dtpHoraFin = new System.Windows.Forms.DateTimePicker();
             this.btnSeleccionServicio = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.lblPrecio = new System.Windows.Forms.Label();
+            this.txtPrecioServicio = new System.Windows.Forms.TextBox();
+            this.lblSignoPeso = new System.Windows.Forms.Label();
+            this.btnSeleccionClliente = new System.Windows.Forms.Button();
+            this.btnModificarTurno = new System.Windows.Forms.Button();
+            this.txtHoraInicio = new System.Windows.Forms.TextBox();
+            this.txtHoraFin = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVerTurno)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCliente)).BeginInit();
             this.SuspendLayout();
@@ -71,7 +78,7 @@
             // lblDni
             // 
             this.lblDni.AutoSize = true;
-            this.lblDni.Location = new System.Drawing.Point(196, 419);
+            this.lblDni.Location = new System.Drawing.Point(227, 529);
             this.lblDni.Name = "lblDni";
             this.lblDni.Size = new System.Drawing.Size(92, 13);
             this.lblDni.TabIndex = 1;
@@ -80,7 +87,7 @@
             // lblNombre
             // 
             this.lblNombre.AutoSize = true;
-            this.lblNombre.Location = new System.Drawing.Point(196, 525);
+            this.lblNombre.Location = new System.Drawing.Point(243, 419);
             this.lblNombre.Name = "lblNombre";
             this.lblNombre.Size = new System.Drawing.Size(23, 13);
             this.lblNombre.TabIndex = 2;
@@ -106,14 +113,14 @@
             // 
             // txtNombre
             // 
-            this.txtNombre.Location = new System.Drawing.Point(329, 412);
+            this.txtNombre.Location = new System.Drawing.Point(345, 522);
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(100, 20);
             this.txtNombre.TabIndex = 5;
             // 
             // txtDni
             // 
-            this.txtDni.Location = new System.Drawing.Point(329, 518);
+            this.txtDni.Location = new System.Drawing.Point(345, 412);
             this.txtDni.Name = "txtDni";
             this.txtDni.Size = new System.Drawing.Size(100, 20);
             this.txtDni.TabIndex = 6;
@@ -231,6 +238,7 @@
             // dgvCliente
             // 
             this.dgvCliente.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvCliente.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgvCliente.Location = new System.Drawing.Point(951, 139);
             this.dgvCliente.Name = "dgvCliente";
             this.dgvCliente.Size = new System.Drawing.Size(449, 177);
@@ -283,15 +291,81 @@
             // 
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1499, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1645, 24);
             this.menuStrip1.TabIndex = 29;
             this.menuStrip1.Text = "menuStrip1";
+            // 
+            // lblPrecio
+            // 
+            this.lblPrecio.AutoSize = true;
+            this.lblPrecio.Location = new System.Drawing.Point(403, 590);
+            this.lblPrecio.Name = "lblPrecio";
+            this.lblPrecio.Size = new System.Drawing.Size(97, 13);
+            this.lblPrecio.TabIndex = 30;
+            this.lblPrecio.Text = "Precio Del Servicio";
+            // 
+            // txtPrecioServicio
+            // 
+            this.txtPrecioServicio.Location = new System.Drawing.Point(430, 635);
+            this.txtPrecioServicio.Name = "txtPrecioServicio";
+            this.txtPrecioServicio.Size = new System.Drawing.Size(70, 20);
+            this.txtPrecioServicio.TabIndex = 31;
+            // 
+            // lblSignoPeso
+            // 
+            this.lblSignoPeso.AutoSize = true;
+            this.lblSignoPeso.Location = new System.Drawing.Point(389, 640);
+            this.lblSignoPeso.Name = "lblSignoPeso";
+            this.lblSignoPeso.Size = new System.Drawing.Size(13, 13);
+            this.lblSignoPeso.TabIndex = 32;
+            this.lblSignoPeso.Text = "$";
+            // 
+            // btnSeleccionClliente
+            // 
+            this.btnSeleccionClliente.Location = new System.Drawing.Point(1429, 196);
+            this.btnSeleccionClliente.Name = "btnSeleccionClliente";
+            this.btnSeleccionClliente.Size = new System.Drawing.Size(204, 23);
+            this.btnSeleccionClliente.TabIndex = 33;
+            this.btnSeleccionClliente.Text = "Selecione el Cliente Para el Turno";
+            this.btnSeleccionClliente.UseVisualStyleBackColor = true;
+            this.btnSeleccionClliente.Click += new System.EventHandler(this.btnSeleccionClliente_Click);
+            // 
+            // btnModificarTurno
+            // 
+            this.btnModificarTurno.Location = new System.Drawing.Point(1337, 693);
+            this.btnModificarTurno.Name = "btnModificarTurno";
+            this.btnModificarTurno.Size = new System.Drawing.Size(158, 23);
+            this.btnModificarTurno.TabIndex = 34;
+            this.btnModificarTurno.Text = "Modificar Turno";
+            this.btnModificarTurno.UseVisualStyleBackColor = true;
+            this.btnModificarTurno.Click += new System.EventHandler(this.btnModificarTurno_Click);
+            // 
+            // txtHoraInicio
+            // 
+            this.txtHoraInicio.Location = new System.Drawing.Point(554, 675);
+            this.txtHoraInicio.Name = "txtHoraInicio";
+            this.txtHoraInicio.Size = new System.Drawing.Size(212, 20);
+            this.txtHoraInicio.TabIndex = 35;
+            // 
+            // txtHoraFin
+            // 
+            this.txtHoraFin.Location = new System.Drawing.Point(986, 672);
+            this.txtHoraFin.Name = "txtHoraFin";
+            this.txtHoraFin.Size = new System.Drawing.Size(200, 20);
+            this.txtHoraFin.TabIndex = 36;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1499, 728);
+            this.ClientSize = new System.Drawing.Size(1645, 728);
+            this.Controls.Add(this.txtHoraFin);
+            this.Controls.Add(this.txtHoraInicio);
+            this.Controls.Add(this.btnModificarTurno);
+            this.Controls.Add(this.btnSeleccionClliente);
+            this.Controls.Add(this.lblSignoPeso);
+            this.Controls.Add(this.txtPrecioServicio);
+            this.Controls.Add(this.lblPrecio);
             this.Controls.Add(this.btnSeleccionServicio);
             this.Controls.Add(this.dtpHoraFin);
             this.Controls.Add(this.dtpHoraInicio);
@@ -360,6 +434,13 @@
         private System.Windows.Forms.DateTimePicker dtpHoraFin;
         private System.Windows.Forms.Button btnSeleccionServicio;
         private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.Label lblPrecio;
+        private System.Windows.Forms.TextBox txtPrecioServicio;
+        private System.Windows.Forms.Label lblSignoPeso;
+        private System.Windows.Forms.Button btnSeleccionClliente;
+        private System.Windows.Forms.Button btnModificarTurno;
+        private System.Windows.Forms.TextBox txtHoraInicio;
+        private System.Windows.Forms.TextBox txtHoraFin;
     }
 }
 

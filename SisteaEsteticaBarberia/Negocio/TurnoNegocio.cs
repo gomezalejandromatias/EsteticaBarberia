@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -191,7 +192,78 @@ namespace Negocio
         public void AgregarTurno(Turno turno)
         {
 
+            AccesoDatos accesoDatos = new AccesoDatos();
 
+            try
+            {
+                accesoDatos.SetearConsulta("insert into TurnoGrupo (Inicio,Fin,Estado)values(@Inicio,@Fin,@Estado) select scope_identity();");
+                accesoDatos.SetearParametro("@Inicio", turno.Inicio);
+                accesoDatos.SetearParametro("@Fin", turno.Fin);
+                accesoDatos.SetearParametro("@Estado", turno.Estado);
+                int IdTurnoGrupo = Convert.ToInt32((decimal)(accesoDatos.EjecutarEscalar()));
+
+                foreach (ClienteTurno ct in turno.clienteTurnos)
+                {
+                    int idCliente = ct.Cliente.IdCliente;
+
+                    // 2a) PUENTE TurnoGrupoCliente
+                    accesoDatos.SetearConsulta(
+                        "INSERT INTO TurnoGrupoCliente (IdTurnoGrupo, IdCliente) " +
+                        "VALUES (@IdTurnoGrupo, @IdCliente)"
+                    );
+                    accesoDatos.SetearParametro("@IdTurnoGrupo", IdTurnoGrupo);
+                    accesoDatos.SetearParametro("@IdCliente", idCliente);
+                    accesoDatos.EjecutarAccion();
+
+                    decimal total = 0;
+                    foreach (TipoServicio tipoServicio in ct.servicios[0].tipoServicios)
+                    {
+
+                        total += tipoServicio.PrecioServicio;
+
+
+                    }
+
+                    // 2b) SERVICIO (1 por cliente en ese turno)
+                    accesoDatos.SetearConsulta(
+                        "INSERT INTO Servicio (IdTurnoGrupo, IdCliente, FechaServicio,TotalServicio,ObservacionServicio) " +
+                        "VALUES (@IdTurnoGrupo, @IdCliente, GETDATE(),@TotalServicio,@ObservacionServicio); " +
+                        "SELECT SCOPE_IDENTITY();"
+                    );
+                    accesoDatos.SetearParametro("@IdTurnoGrupo", IdTurnoGrupo);
+                    accesoDatos.SetearParametro("@IdCliente", idCliente);
+                    accesoDatos.SetearParametro("@TotalServicio", total);
+                    accesoDatos.SetearParametro("@ObservacionServicio", DBNull.Value);
+
+                    int idServicio = Convert.ToInt32((decimal)accesoDatos.EjecutarEscalar());
+
+                    // 2c) DETALLE: pelo/barba/etc (desde ct.servicios[0].tipoServicios)
+                    // (asumo que ct.servicios tiene 1 item, como vos venías haciendo)
+                    foreach (TipoServicio ts in ct.servicios[0].tipoServicios)
+                    {
+                        accesoDatos.SetearConsulta(
+                            "INSERT INTO ServicioTipoServicio (IdServicio, IdTipoServicio, PrecioAplicado, Cantidad) " +
+                            "VALUES (@IdServicio, @IdTipoServicio, @PrecioAplicado, 1)"
+                        );
+                        accesoDatos.SetearParametro("@IdServicio", idServicio);
+                        accesoDatos.SetearParametro("@IdTipoServicio", ts.IdTipoServicio);
+                        accesoDatos.SetearParametro("@PrecioAplicado", ts.PrecioServicio);
+
+                        accesoDatos.EjecutarAccion();
+                    }
+                }
+
+
+
+
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally { accesoDatos.CerrarConexion(); }
 
 
 
@@ -199,7 +271,68 @@ namespace Negocio
         }
 
 
+        public bool TurnoRepetido(DateTime inicio, DateTime fin)
 
+
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.SetearConsulta(
+                    "SELECT COUNT(1) " +
+                    "FROM TurnoGrupo " +
+                    "WHERE Inicio = @Inicio AND Fin = @Fin " +
+                    "AND Estado <> 'Cancelado'"
+                );
+
+                datos.SetearParametro("@Inicio", inicio);
+                datos.SetearParametro("@Fin", fin);
+
+                int cantidad = Convert.ToInt32(datos.EjecutarEscalar());
+                return cantidad > 0; 
+
+                
+            }
+            finally
+            {
+                datos.CerrarConexion();
+            }
+        }
+
+        public void ModificarTurno(Turno turno) 
+        { 
+           
+              AccesoDatos accesoDatos = new AccesoDatos();
+
+
+            try
+            {
+                accesoDatos.SetearConsulta("update TurnoGrupo set Inicio =@Inicio,Fin = @Fin where IdTurnoGrupo=@IdTurnoGrupo");
+
+                accesoDatos.SetearParametro("@Inicio", turno.Inicio);
+                accesoDatos.SetearParametro("@Fin", turno.Fin);
+                accesoDatos.SetearParametro("@IdTurnGrupo",turno.IdTurno);
+
+
+
+
+
+
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally { accesoDatos.CerrarConexion(); }
+
+        
+        
+        
+        
+        }
 
 
 
