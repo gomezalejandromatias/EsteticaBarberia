@@ -14,36 +14,43 @@ namespace Negocio
         {
             List<TipoServicio> lista = new List<TipoServicio>();
 
-            lista.Add(new TipoServicio
+                AccesoDatos accesoDatos = new AccesoDatos();
+
+
+            try
             {
-                IdTipoServicio = 1,
-              
-                Servicio = "Corte de pelo",
-                PrecioServicio = 4500,
-                Activo = true
-            });
 
-            lista.Add(new TipoServicio
+                accesoDatos.SetearConsulta("SELECT IdTipoServicio, PrecioServicio, Servicio FROM TipoServicio WHERE Activo = 1");
+                accesoDatos.EjecutarLectura();
+
+                while (accesoDatos.Lector.Read())
+                {
+                    TipoServicio tipoServicio = new TipoServicio();
+
+                    tipoServicio.IdTipoServicio = (int) accesoDatos.Lector["IdTipoServicio"];
+                    tipoServicio.PrecioServicio = (decimal) accesoDatos.Lector["PrecioServicio"];
+                   tipoServicio.Servicio = (string) accesoDatos.Lector["Servicio"];
+                    
+
+
+                     lista.Add(tipoServicio);
+
+
+
+                }
+
+                return lista;
+
+
+
+
+}
+            catch (Exception ex)
             {
-                IdTipoServicio = 2,
-                
-                Servicio = "Barba",
-                PrecioServicio = 3000,
-                Activo = true
-            });
 
-            lista.Add(new TipoServicio
-            {
-                IdTipoServicio = 3,
-                
-                Servicio = "Alisado",
-                PrecioServicio = 15000,
-                Activo = true
-            });
-
-
-
-            return lista;
+                throw ex;
+            }
+            finally { accesoDatos.CerrarConexion(); }
 
 
 

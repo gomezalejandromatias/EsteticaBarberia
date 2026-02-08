@@ -46,7 +46,8 @@ namespace Negocio
     JOIN TipoServicio ts 
         ON ts.IdTipoServicio = sts.IdTipoServicio
     WHERE tg.Activo = 1
-    ORDER BY tg.IdTurnoGrupo, c.IdCliente, ts.IdTipoServicio
+      AND CONVERT(date, tg.Inicio) >= CONVERT(date, GETDATE()) and tg.Estado <> 'Cancelado'
+ORDER BY tg.IdTurnoGrupo, c.IdCliente, ts.IdTipoServicio
 ");
                 accesoDatos.EjecutarLectura();
 
@@ -206,6 +207,7 @@ namespace Negocio
                 {
                     int idCliente = ct.Cliente.IdCliente;
 
+
                     // 2a) PUENTE TurnoGrupoCliente
                     accesoDatos.SetearConsulta(
                         "INSERT INTO TurnoGrupoCliente (IdTurnoGrupo, IdCliente) " +
@@ -279,20 +281,21 @@ namespace Negocio
 
             try
             {
-                datos.SetearConsulta(
-                    "SELECT COUNT(1) " +
-                    "FROM TurnoGrupo " +
-                    "WHERE Inicio = @Inicio AND Fin = @Fin " +
-                    "AND Estado <> 'Cancelado'"
-                );
+                datos.SetearConsulta(@"
+            SELECT COUNT(1)
+            FROM TurnoGrupo
+            WHERE Estado <> 'Cancelado'
+              AND CONVERT(date, Inicio) = CONVERT(date, @Inicio)
+              AND (@Inicio < Fin AND @Fin > Inicio)
+        ");
 
                 datos.SetearParametro("@Inicio", inicio);
                 datos.SetearParametro("@Fin", fin);
 
                 int cantidad = Convert.ToInt32(datos.EjecutarEscalar());
-                return cantidad > 0; 
+                return cantidad > 0;
 
-                
+
             }
             finally
             {
@@ -300,10 +303,10 @@ namespace Negocio
             }
         }
 
-        public void ModificarTurno(Turno turno) 
-        { 
-           
-              AccesoDatos accesoDatos = new AccesoDatos();
+        public void ModificarTurno(TurnoListaDto turno)
+        {
+
+            AccesoDatos accesoDatos = new AccesoDatos();
 
 
             try
@@ -312,7 +315,15 @@ namespace Negocio
 
                 accesoDatos.SetearParametro("@Inicio", turno.Inicio);
                 accesoDatos.SetearParametro("@Fin", turno.Fin);
-                accesoDatos.SetearParametro("@IdTurnGrupo",turno.IdTurno);
+                accesoDatos.SetearParametro("@IdTurnoGrupo", turno.IdTurno);
+
+
+
+                accesoDatos.EjecutarAccion();
+
+
+
+
 
 
 
@@ -328,10 +339,177 @@ namespace Negocio
             }
             finally { accesoDatos.CerrarConexion(); }
 
-        
-        
-        
-        
+
+
+
+
+        }
+
+        public void CancelarTurno(TurnoListaDto turno)
+        {
+
+            AccesoDatos accesoDatos = new AccesoDatos();
+
+
+            try
+            {
+                accesoDatos.SetearConsulta("update TurnoGrupo set Estado = @Estado where IdTurnoGrupo = @IdTurnoGrupo");
+                accesoDatos.SetearParametro("@IdTurnoGrupo", turno.IdTurno);
+                accesoDatos.SetearParametro("@Estado", turno.Estado);
+                accesoDatos.EjecutarAccion();
+
+
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+
+            }
+            finally { accesoDatos.CerrarConexion(); }
+
+
+        }
+
+        public void TurnoAtendido(TurnoListaDto turnoListaDto)
+        {
+            AccesoDatos accesoDatos = new AccesoDatos();
+
+            try
+            {
+                accesoDatos.SetearConsulta("update TurnoGrupo set Estado = @Estado where IdTurnoGrupo=@IdTurnoGrupo");
+                accesoDatos.SetearParametro("@IdturnoGrupo", turnoListaDto.IdTurno);
+                accesoDatos.SetearParametro("@Estado", turnoListaDto.Estado);
+
+                accesoDatos.EjecutarAccion();
+
+
+
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally { accesoDatos.CerrarConexion(); }
+
+
+
+        }
+        public void TurnoCancelado(TurnoListaDto turnoListaDto)
+        {
+
+            AccesoDatos accesoDatos = new AccesoDatos();
+
+            try
+            {
+                accesoDatos.SetearConsulta("update TurnoGrupo set Estado = @Estado where IdTurnoGrupo=@IdTurnoGrupo");
+                accesoDatos.SetearParametro("@IdturnoGrupo", turnoListaDto.IdTurno);
+                accesoDatos.SetearParametro("@Estado", turnoListaDto.Estado);
+
+                accesoDatos.EjecutarAccion();
+
+
+
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally { accesoDatos.CerrarConexion(); }
+
+
+
+
+        }
+
+        public void ModificarServicio(Turno turno)
+        {
+
+
+            AccesoDatos accesoDatos = new AccesoDatos();
+            try
+            {
+
+
+                foreach (ClienteTurno clienteTurno in turno.clienteTurnos)
+                {
+                    int idcliente = clienteTurno.Cliente.IdCliente;
+                    int idturno = clienteTurno.Turno.IdTurno;
+
+                    decimal total = 0;
+                    foreach (TipoServicio item in clienteTurno.servicios[0].tipoServicios)
+                    {
+
+                        total += item.PrecioServicio;
+
+
+                    }
+                    accesoDatos.SetearConsulta(
+   "SELECT IdServicio FROM Servicio WHERE IdTurnoGrupo=@IdTurnoGrupo AND IdCliente=@IdCliente"
+);
+                    accesoDatos.SetearParametro("@IdTurnoGrupo", idturno);
+                    accesoDatos.SetearParametro("@IdCliente", idcliente);
+
+                    object aux = accesoDatos.EjecutarEscalar();
+                    int idServicio = Convert.ToInt32(aux);
+
+                    accesoDatos.SetearConsulta("update servicio set TotalServicio=@TotalServicio where IdTurnoGrupo=@IdTurnoGrupo and IdCliente=@IdCliente");
+
+                    accesoDatos.SetearParametro("@IdTurnoGrupo",idturno);
+                    accesoDatos.SetearParametro("@IdCliente", idcliente);
+                    accesoDatos.SetearParametro("@TotalServicio", total);
+
+                    accesoDatos.EjecutarAccion();
+
+
+                    foreach (TipoServicio item in clienteTurno.servicios[0].tipoServicios)
+                    {
+                        accesoDatos.SetearConsulta(
+             "update ServicioTipoServicio set IdTipoServicio=@IdTipoServicio,PrecioAplicado=@PrecioAplicado,Cantidad=@Cantidad where IdServicio=@IdServicio");
+           
+         
+                        accesoDatos.SetearParametro("@IdServicio",idServicio);
+                        accesoDatos.SetearParametro("@IdTipoServicio", item.IdTipoServicio);
+                        accesoDatos.SetearParametro("@PrecioAplicado", item.PrecioServicio);
+
+                        accesoDatos.EjecutarAccion();
+
+
+
+
+
+                    }
+
+
+
+
+                }
+
+               
+
+
+
+
+
+
+
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally { accesoDatos.CerrarConexion(); }
+
+
+
+
         }
 
 

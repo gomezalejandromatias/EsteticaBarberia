@@ -9,10 +9,12 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Negocio;
 using Dominio;
+using System.Security.Cryptography.X509Certificates;
 namespace SisteaEsteticaBarberia
 {
     public partial class Form1 : Form
     {
+        int Idturno = 0;
         public List<Turno> turnos = new List<Turno>();
 
          public Turno turno;
@@ -23,9 +25,12 @@ namespace SisteaEsteticaBarberia
         public TipoServicio seleccionado;
         public List<TipoServicio> ListaServicio = new List<TipoServicio>();
 
-       
+        public List<TipoServicio>listamodificarservicio = new List<TipoServicio>();
 
-        public Turno modificarturno;
+        decimal totalmodificadoservcicio = 0;
+        public TipoServicio modificarservicio;
+
+        public TurnoListaDto modificarturno = new TurnoListaDto();
 
         ClienteTurno ClienteTurno;
 
@@ -41,8 +46,19 @@ namespace SisteaEsteticaBarberia
             CargarGrilla();
 
             lblSinTurno.Visible = false;
+       
             CargarGrillaCliente();
             CargarComboBox();
+
+            Limpiar();
+
+            InvisibleTxt();
+
+            dtpHoraVerTurnos.MinDate = DateTime.Today;
+            dtpHoraInicioTurno.MinDate = DateTime.Today;
+            dtpHoraFinTurno.MinDate = DateTime.Today;
+      
+       
 
 
         }
@@ -53,7 +69,9 @@ namespace SisteaEsteticaBarberia
             TurnoNegocio turnoNegocio = new TurnoNegocio();
             var turnos = turnoNegocio.ListaTurno();
 
-            var grilla = new List<object>();
+
+
+            List<TurnoListaDto> grilla = new List<TurnoListaDto>();
 
             foreach (var t in turnos)
             {
@@ -77,12 +95,13 @@ namespace SisteaEsteticaBarberia
 
                     string serviciosTexto = string.Join(", ", nombresServicios);
 
-                    grilla.Add(new
+                    grilla.Add(new TurnoListaDto
                     {
-                        Turno = t.IdTurno,
+                        IdTurno = t.IdTurno,
                         Inicio = t.Inicio,
                         Fin = t.Fin,
                         Estado = t.Estado,
+                        IdCliente = t.cliente.IdCliente,
                         Cliente = ct.Cliente.Nombre,
                         Telefono = ct.Cliente.Telefono,
                         Servicios = serviciosTexto,
@@ -163,7 +182,7 @@ namespace SisteaEsteticaBarberia
 
 
 
-
+            Limpiar();
 
             CargarGrillaCliente();
 
@@ -196,57 +215,86 @@ namespace SisteaEsteticaBarberia
 
         private void btnAgregarTurno_Click(object sender, EventArgs e)
         {
+            try
+            {
+                DialogResult respuesta = MessageBox.Show("Desea Agregar el Turno?", "Agregar", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
-            TurnoNegocio turnoNegocio = new TurnoNegocio();
+                if (respuesta == DialogResult.Yes)
+                {
 
-            
-
-            ClienteTurno = new ClienteTurno();
-            Servicio nuevo = new Servicio();
-            nuevo.tipoServicios = new List<TipoServicio>(ListaServicio);
-            nuevo.TotalServicio = total;
-
-            ClienteTurno.Cliente.Dni = txtDni.Text;
-            ClienteTurno.Cliente.Nombre = txtNombre.Text;
-            ClienteTurno.Cliente.Email = txtEmail.Text;
-            ClienteTurno.Cliente.Telefono = txtTelefono.Text;
-
-            ClienteTurno.servicios.Add(nuevo);
-
-            ClienteTurno.Turno.Inicio = dtpHoraInicioTurno.Value.Date
-             + dtpHoraInicio.Value.TimeOfDay;
-
-            ClienteTurno.Turno.Fin = dtpHoraFinTurno.Value.Date
-                      + dtpHoraFin.Value.TimeOfDay;
+                    TurnoNegocio turnoNegocio = new TurnoNegocio();
 
 
-           if(turnoNegocio.TurnoRepetido(dtpHoraInicioTurno.Value.Date + dtpHoraInicio.Value.TimeOfDay, dtpHoraFinTurno.Value.Date+ dtpHoraFin.Value.TimeOfDay))
-           {
+                    //armo el obj de clientturno
+                    ClienteTurno = new ClienteTurno();
+                    //armo el obj de servicio
+                    Servicio nuevo = new Servicio();
+                    nuevo.tipoServicios = new List<TipoServicio>(ListaServicio);
+                    nuevo.TotalServicio = total;
 
-                return;
+                    ClienteTurno.Cliente.Dni = txtDni.Text;
+                    ClienteTurno.Cliente.Nombre = txtNombre.Text;
+                    ClienteTurno.Cliente.Email = txtEmail.Text;
+                    ClienteTurno.Cliente.Telefono = txtTelefono.Text;
 
-           }
+                    ClienteTurno.servicios.Add(nuevo);
 
-            ClienteTurno.Cliente.IdCliente = SeleccionarIdCliente.IdCliente;
+                    ClienteTurno.Turno.Inicio = dtpHoraInicioTurno.Value.Date
+                     + dtpHoraInicio.Value.TimeOfDay;
 
-              listaturnocliente.Add(ClienteTurno);
+                    ClienteTurno.Turno.Fin = dtpHoraFinTurno.Value.Date
+                              + dtpHoraFin.Value.TimeOfDay;
 
-              turno = new Turno();
 
-            turno.clienteTurnos = listaturnocliente;
-            turno.Inicio = ClienteTurno.Turno.Inicio;
-            turno.Fin = ClienteTurno.Turno.Fin;
-            turno.Estado = "Pendiente";
-             
-            turnoNegocio.AgregarTurno(turno);
+                    if (turnoNegocio.TurnoRepetido(dtpHoraInicioTurno.Value.Date + dtpHoraInicio.Value.TimeOfDay, dtpHoraFinTurno.Value.Date + dtpHoraFin.Value.TimeOfDay))
+                    {
+                        MessageBox.Show("no se puede");
 
-            MessageBox.Show("bien");
+                        return;
+
+                    }
+
+                    ClienteTurno.Cliente.IdCliente = SeleccionarIdCliente.IdCliente;
+
+                    //importante aca vacio la lista para qu en el segundo clik
+                    //la lista no quede con el clinete/turno anterior
+                    listaturnocliente.Clear();
+
+                    listaturnocliente.Add(ClienteTurno);
+
+                    turno = new Turno();
+
+                    turno.clienteTurnos = listaturnocliente;
+                    turno.Inicio = ClienteTurno.Turno.Inicio;
+                    turno.Fin = ClienteTurno.Turno.Fin;
+                    turno.Estado = "Confirmado";
+
+                    turnoNegocio.AgregarTurno(turno);
+
+                    MessageBox.Show("bien");
+
+
+                }
+
+              
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+
 
             dgvVerTurno.DataSource = null;
             dgvVerTurno.DataSource = listaturnocliente;
 
-
+            listaturnocliente.Clear();
+            ListaServicio.Clear();
+            total = 0;
             CargarGrilla();
+            Limpiar();
                 
 
         }
@@ -261,6 +309,12 @@ namespace SisteaEsteticaBarberia
             txtPrecioServicio.Text = seleccionado.PrecioServicio.ToString();
 
             total += decimal.Parse(txtPrecioServicio.Text);
+
+
+
+
+
+
         }
 
         private void btnSeleccionClliente_Click(object sender, EventArgs e)
@@ -273,21 +327,384 @@ namespace SisteaEsteticaBarberia
 
         private void btnModificarTurno_Click(object sender, EventArgs e)
         {
-            int id = (int)dgvVerTurno.CurrentRow.DataBoundItem;
+      
 
-            MessageBox.Show("" + id);
+            modificarturno = (TurnoListaDto)dgvVerTurno.CurrentRow.DataBoundItem;
+
+             Idturno = modificarturno.IdTurno;
+
+            txtHoraInicio.Text = modificarturno.Inicio.ToString();
+            txtHoraFin.Text = modificarturno.Fin.ToString();
+            txtNombre.Text = modificarturno.Cliente;
+            txtTelefono.Text = modificarturno.Telefono;
+
+            
+
+            EnableTxt();
+
+            VisibleTxt();
+            BtnInvisibles();
+
+
+        }
+
+
+        private void cbTipoServicio_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Limpiar() 
+        {
+
+            txtDni.Text = "";
+            txtEmail.Text = "";
+            txtNombre.Text = "";
+            txtTelefono.Text = "";
+            txtPrecioServicio.Text = "";
+
+            txtDni.Focus();
+
+        }
+
+        private void btnCancelarTurno_Click(object sender, EventArgs e)
+        {
+
+            modificarturno = (TurnoListaDto)dgvVerTurno.CurrentRow.DataBoundItem;
+
             TurnoNegocio turnoNegocio = new TurnoNegocio();
 
-            txtHoraInicio.Text = dtpHoraInicioTurno.Value.Date + dtpHoraInicio.Value.TimeOfDay.ToString();
-            txtHoraFin.Text = dtpHoraFinTurno.Value.Date + dtpHoraFin.Value.TimeOfDay.ToString();
+            try
+            {
+                DialogResult respuesta = MessageBox.Show("Desea Cancelar el Turno?", "Cancelar", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
-            modificarturno.Inicio = dtpHoraInicioTurno.Value.Date + dtpHoraInicio.Value.TimeOfDay;
-            modificarturno.Fin = dtpHoraFinTurno.Value.Date + dtpHoraFin.Value.TimeOfDay;
+                if (respuesta == DialogResult.Yes)
+                {
+
+                    modificarturno.Estado = "Cancelado";
+                    turnoNegocio.CancelarTurno(modificarturno);
+
+                }
+
+                MessageBox.Show("Bien");
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+            CargarGrilla() ;
+
+            Limpiar();
 
 
-            //turnoNegocio.ModificarTurno(modificarturno);
+
+        }
+
+        private void btnClienteAtendido_Click(object sender, EventArgs e)
+        {
+            modificarturno = (TurnoListaDto)dgvVerTurno.CurrentRow.DataBoundItem;
+
+            TurnoNegocio turnoNegocio = new TurnoNegocio();
+
+            try
+            {
+                DialogResult respuesta = MessageBox.Show("Turno/Cliente Atendido", "Cliente Atendido", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                if (respuesta == DialogResult.Yes)
+                {
+
+                    modificarturno.Estado = "Terminado";
+                    turnoNegocio.TurnoAtendido(modificarturno);
+                    
+                    int id = modificarturno.IdTurno;
+
+                }
+
+                MessageBox.Show("Bien");
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+            CargarGrilla();
+
+            Limpiar();
+
+
+
+
+        }
+
+        private void btnNoAsistio_Click(object sender, EventArgs e)
+        {
+            modificarturno = (TurnoListaDto)dgvVerTurno.CurrentRow.DataBoundItem;
+
+            TurnoNegocio turnoNegocio = new TurnoNegocio();
+
+            try
+            {
+                DialogResult respuesta = MessageBox.Show("Turno/Cliente Atendido", "Cliente Atendido", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                if (respuesta == DialogResult.Yes)
+                {
+
+                    modificarturno.Estado = "No Asistio";
+                    turnoNegocio.CancelarTurno(modificarturno);
+
+                    int id = modificarturno.IdTurno;
+
+                }
+
+                MessageBox.Show("Bien");
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+            CargarGrilla();
+
+            Limpiar();
+        }
+
+        private void EnableTxt()
+        {
+
+             txtDni.Enabled = false;
+             txtEmail.Enabled = false;
+            txtNombre.Enabled = false;
+            txtTelefono.Enabled = false;
+
+
+
+
+
+
+
+        }
+        private void Txt()
+        {
+
+            txtDni.Enabled = true;
+            txtEmail.Enabled = true;
+            txtNombre.Enabled = true;
+            txtTelefono.Enabled = true;
+
+            Limpiar();
+
+        }
+
+        private void VisibleTxt()
+        {
+
+            txtHoraFin.Visible = true;
+            txtHoraInicio.Visible = true;
+
+            lblModificarHorFIn.Visible = true;
+            lblModificarFecha.Visible = true;
+
+            btnModificarDefinitivo.Visible = true;
+
+
+
+
+        }
+        private void InvisibleTxt()
+        {
+            txtHoraFin.Visible = false;
+            txtHoraInicio.Visible = false;
+
+            lblModificarHorFIn.Visible = false;
+            lblModificarFecha.Visible = false;
+
+            btnModificarDefinitivo.Visible = false;
+
+            lblSinTurno.Visible = false;
+        }
+
+        private void btnModificarDefinitivo_Click(object sender, EventArgs e)
+        {
+
+                    TurnoNegocio turnoNegocio = new TurnoNegocio();
+            try
+            {
+                DialogResult respuesta = MessageBox.Show("Desea Modificar el Turno?", "Modificacion", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                if (respuesta == DialogResult.Yes)
+                {
+
+                    modificarturno.IdTurno = Idturno;
+
+
+
+                    modificarturno.Inicio = dtpHoraInicioTurno.Value.Date + dtpHoraInicio.Value.TimeOfDay;
+                    modificarturno.Fin = dtpHoraFinTurno.Value.Date + dtpHoraFin.Value.TimeOfDay;
+
+                    if (turnoNegocio.TurnoRepetido(modificarturno.Inicio, modificarturno.Fin)) { MessageBox.Show("repetido"); return; }
+                    turnoNegocio.ModificarTurno(modificarturno);
+
+                    MessageBox.Show("bien");
+
+                }
+
+               
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+ 
+
+            CargarGrilla();
+            InvisibleTxt();
+            BtnVisbles();
+
+            Txt();
+
+
+        }
+
+        private void BtnInvisibles()
+        {
+
+
+            btnModificarTurno.Visible = false;
+            btnNoAsistio.Visible=false;
+            btnAgregarCliente.Visible=false;
+            btnCancelarTurno.Visible=false;
+            btnClienteAtendido.Visible=false;
+            btnAgregarTurno.Visible = false;
+            btnSeleccionClliente.Visible=false;
+            btnSeleccionServicio.Visible=false;
+
+            
+
+
+        }
+        private void BtnVisbles()
+        {
+
+            btnModificarTurno.Visible = true;
+            btnNoAsistio.Visible = true;
+            btnAgregarCliente.Visible = true;
+            btnCancelarTurno.Visible = true;
+            btnClienteAtendido.Visible = true;
+            btnAgregarTurno.Visible = true;
+            btnSeleccionClliente.Visible = true;
+            btnSeleccionServicio.Visible = true;
+
+
+
+        }
+
+        private void btnLimpiarFecha_Click(object sender, EventArgs e)
+        {
+            dtpHoraVerTurnos.Value = DateTime.Today;
+
+            CargarGrilla();
+
+            lblSinTurno.Visible = false;
+
+
+
+
+        }
+
+        private void dgvVerTurno_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void btnModificarServicio_Click(object sender, EventArgs e)
+        {
+  
+              
+
+            
+
+            try
+            {
+                DialogResult respuesta = MessageBox.Show("Desea Modificar los Servicios De Este Turno/Cliente?", "Modificacacion", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                if (respuesta == DialogResult.Yes)
+                {
+
+                    
+
+                }
+
+                MessageBox.Show("Bien");
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+            CargarGrilla();
+
+            Limpiar();
+
+
+
+
+        }
+
+   
+
+        private void ModificarServicio()
+        {
+
+            modificarservicio = (TipoServicio)cbTipoServicio.SelectedItem;
+
+
+            listamodificarservicio.Add(modificarservicio);
+
+            totalmodificadoservcicio += decimal.Parse(txtPrecioServicio.Text);
+
+
+              Servicio servicio = new Servicio();
+            servicio.tipoServicios = listamodificarservicio;    
+            servicio.TotalServicio = totalmodificadoservcicio;  
+
+              ClienteTurno clienteTurno = new ClienteTurno();   
+
+             clienteTurno.servicios.Add(servicio);
+
+               listaturnocliente.Add(clienteTurno);
+
+            turno = new Turno();
+            turno.clienteTurnos = listaturnocliente;
+            
+            
+
+            TurnoNegocio turnoNegocio = new TurnoNegocio();
+
+            turnoNegocio.ModificarServicio(turno);
+
+            
+
+         
+
+
+
+              
+
 
 
         }
     }
 }
+           

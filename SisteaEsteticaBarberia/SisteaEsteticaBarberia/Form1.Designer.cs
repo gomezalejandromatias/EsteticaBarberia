@@ -62,6 +62,15 @@
             this.btnModificarTurno = new System.Windows.Forms.Button();
             this.txtHoraInicio = new System.Windows.Forms.TextBox();
             this.txtHoraFin = new System.Windows.Forms.TextBox();
+            this.btnCancelarTurno = new System.Windows.Forms.Button();
+            this.btnClienteAtendido = new System.Windows.Forms.Button();
+            this.btnNoAsistio = new System.Windows.Forms.Button();
+            this.lblModificarFecha = new System.Windows.Forms.Label();
+            this.lblModificarHorFIn = new System.Windows.Forms.Label();
+            this.btnModificarDefinitivo = new System.Windows.Forms.Button();
+            this.btnLimpiarFecha = new System.Windows.Forms.Button();
+            this.btnModificarServicio = new System.Windows.Forms.Button();
+            this.btnModificarServicioDefinito = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVerTurno)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCliente)).BeginInit();
             this.SuspendLayout();
@@ -141,7 +150,7 @@
             // 
             // btnAgregarCliente
             // 
-            this.btnAgregarCliente.Location = new System.Drawing.Point(914, 515);
+            this.btnAgregarCliente.Location = new System.Drawing.Point(951, 518);
             this.btnAgregarCliente.Name = "btnAgregarCliente";
             this.btnAgregarCliente.Size = new System.Drawing.Size(179, 23);
             this.btnAgregarCliente.TabIndex = 9;
@@ -164,6 +173,7 @@
             this.dgvVerTurno.Name = "dgvVerTurno";
             this.dgvVerTurno.Size = new System.Drawing.Size(601, 170);
             this.dgvVerTurno.TabIndex = 12;
+            this.dgvVerTurno.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvVerTurno_CellContentClick);
             // 
             // lblTurno
             // 
@@ -177,7 +187,7 @@
             // lblDescripcion
             // 
             this.lblDescripcion.AutoSize = true;
-            this.lblDescripcion.Location = new System.Drawing.Point(196, 590);
+            this.lblDescripcion.Location = new System.Drawing.Point(205, 635);
             this.lblDescripcion.Name = "lblDescripcion";
             this.lblDescripcion.Size = new System.Drawing.Size(89, 13);
             this.lblDescripcion.TabIndex = 14;
@@ -186,7 +196,7 @@
             // dtpHoraInicioTurno
             // 
             this.dtpHoraInicioTurno.DropDownAlign = System.Windows.Forms.LeftRightAlignment.Right;
-            this.dtpHoraInicioTurno.Location = new System.Drawing.Point(554, 640);
+            this.dtpHoraInicioTurno.Location = new System.Drawing.Point(554, 675);
             this.dtpHoraInicioTurno.Name = "dtpHoraInicioTurno";
             this.dtpHoraInicioTurno.Size = new System.Drawing.Size(212, 20);
             this.dtpHoraInicioTurno.TabIndex = 16;
@@ -194,7 +204,7 @@
             // lblInicioTurno
             // 
             this.lblInicioTurno.AutoSize = true;
-            this.lblInicioTurno.Location = new System.Drawing.Point(562, 590);
+            this.lblInicioTurno.Location = new System.Drawing.Point(562, 635);
             this.lblInicioTurno.Name = "lblInicioTurno";
             this.lblInicioTurno.Size = new System.Drawing.Size(155, 13);
             this.lblInicioTurno.TabIndex = 17;
@@ -203,7 +213,7 @@
             // lblFinTurno
             // 
             this.lblFinTurno.AutoSize = true;
-            this.lblFinTurno.Location = new System.Drawing.Point(1014, 590);
+            this.lblFinTurno.Location = new System.Drawing.Point(1006, 635);
             this.lblFinTurno.Name = "lblFinTurno";
             this.lblFinTurno.Size = new System.Drawing.Size(146, 13);
             this.lblFinTurno.TabIndex = 18;
@@ -211,16 +221,16 @@
             // 
             // dtpHoraFinTurno
             // 
-            this.dtpHoraFinTurno.Location = new System.Drawing.Point(986, 640);
+            this.dtpHoraFinTurno.Location = new System.Drawing.Point(986, 674);
             this.dtpHoraFinTurno.Name = "dtpHoraFinTurno";
             this.dtpHoraFinTurno.Size = new System.Drawing.Size(200, 20);
             this.dtpHoraFinTurno.TabIndex = 19;
             // 
             // btnAgregarTurno
             // 
-            this.btnAgregarTurno.Location = new System.Drawing.Point(1337, 639);
+            this.btnAgregarTurno.Location = new System.Drawing.Point(1337, 670);
             this.btnAgregarTurno.Name = "btnAgregarTurno";
-            this.btnAgregarTurno.Size = new System.Drawing.Size(150, 23);
+            this.btnAgregarTurno.Size = new System.Drawing.Size(184, 23);
             this.btnAgregarTurno.TabIndex = 20;
             this.btnAgregarTurno.Text = "Agregar Turno";
             this.btnAgregarTurno.UseVisualStyleBackColor = true;
@@ -241,7 +251,7 @@
             this.dgvCliente.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgvCliente.Location = new System.Drawing.Point(951, 139);
             this.dgvCliente.Name = "dgvCliente";
-            this.dgvCliente.Size = new System.Drawing.Size(449, 177);
+            this.dgvCliente.Size = new System.Drawing.Size(438, 177);
             this.dgvCliente.TabIndex = 23;
             // 
             // lblCliente
@@ -256,15 +266,16 @@
             // cbTipoServicio
             // 
             this.cbTipoServicio.FormattingEnabled = true;
-            this.cbTipoServicio.Location = new System.Drawing.Point(199, 635);
+            this.cbTipoServicio.Location = new System.Drawing.Point(181, 674);
             this.cbTipoServicio.Name = "cbTipoServicio";
             this.cbTipoServicio.Size = new System.Drawing.Size(167, 21);
             this.cbTipoServicio.TabIndex = 25;
+            this.cbTipoServicio.SelectedIndexChanged += new System.EventHandler(this.cbTipoServicio_SelectedIndexChanged);
             // 
             // dtpHoraInicio
             // 
             this.dtpHoraInicio.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.dtpHoraInicio.Location = new System.Drawing.Point(792, 640);
+            this.dtpHoraInicio.Location = new System.Drawing.Point(797, 675);
             this.dtpHoraInicio.Name = "dtpHoraInicio";
             this.dtpHoraInicio.Size = new System.Drawing.Size(80, 20);
             this.dtpHoraInicio.TabIndex = 26;
@@ -272,14 +283,14 @@
             // dtpHoraFin
             // 
             this.dtpHoraFin.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.dtpHoraFin.Location = new System.Drawing.Point(1209, 640);
+            this.dtpHoraFin.Location = new System.Drawing.Point(1207, 675);
             this.dtpHoraFin.Name = "dtpHoraFin";
             this.dtpHoraFin.Size = new System.Drawing.Size(89, 20);
             this.dtpHoraFin.TabIndex = 27;
             // 
             // btnSeleccionServicio
             // 
-            this.btnSeleccionServicio.Location = new System.Drawing.Point(199, 672);
+            this.btnSeleccionServicio.Location = new System.Drawing.Point(181, 721);
             this.btnSeleccionServicio.Name = "btnSeleccionServicio";
             this.btnSeleccionServicio.Size = new System.Drawing.Size(167, 23);
             this.btnSeleccionServicio.TabIndex = 28;
@@ -298,7 +309,7 @@
             // lblPrecio
             // 
             this.lblPrecio.AutoSize = true;
-            this.lblPrecio.Location = new System.Drawing.Point(403, 590);
+            this.lblPrecio.Location = new System.Drawing.Point(418, 639);
             this.lblPrecio.Name = "lblPrecio";
             this.lblPrecio.Size = new System.Drawing.Size(97, 13);
             this.lblPrecio.TabIndex = 30;
@@ -306,7 +317,7 @@
             // 
             // txtPrecioServicio
             // 
-            this.txtPrecioServicio.Location = new System.Drawing.Point(430, 635);
+            this.txtPrecioServicio.Location = new System.Drawing.Point(421, 674);
             this.txtPrecioServicio.Name = "txtPrecioServicio";
             this.txtPrecioServicio.Size = new System.Drawing.Size(70, 20);
             this.txtPrecioServicio.TabIndex = 31;
@@ -314,7 +325,7 @@
             // lblSignoPeso
             // 
             this.lblSignoPeso.AutoSize = true;
-            this.lblSignoPeso.Location = new System.Drawing.Point(389, 640);
+            this.lblSignoPeso.Location = new System.Drawing.Point(391, 680);
             this.lblSignoPeso.Name = "lblSignoPeso";
             this.lblSignoPeso.Size = new System.Drawing.Size(13, 13);
             this.lblSignoPeso.TabIndex = 32;
@@ -332,33 +343,130 @@
             // 
             // btnModificarTurno
             // 
-            this.btnModificarTurno.Location = new System.Drawing.Point(1337, 693);
+            this.btnModificarTurno.Location = new System.Drawing.Point(1337, 726);
             this.btnModificarTurno.Name = "btnModificarTurno";
-            this.btnModificarTurno.Size = new System.Drawing.Size(158, 23);
+            this.btnModificarTurno.Size = new System.Drawing.Size(184, 23);
             this.btnModificarTurno.TabIndex = 34;
-            this.btnModificarTurno.Text = "Modificar Turno";
+            this.btnModificarTurno.Text = "Modificar Fecha Del Turno";
             this.btnModificarTurno.UseVisualStyleBackColor = true;
             this.btnModificarTurno.Click += new System.EventHandler(this.btnModificarTurno_Click);
             // 
             // txtHoraInicio
             // 
-            this.txtHoraInicio.Location = new System.Drawing.Point(554, 675);
+            this.txtHoraInicio.Location = new System.Drawing.Point(554, 765);
             this.txtHoraInicio.Name = "txtHoraInicio";
             this.txtHoraInicio.Size = new System.Drawing.Size(212, 20);
             this.txtHoraInicio.TabIndex = 35;
             // 
             // txtHoraFin
             // 
-            this.txtHoraFin.Location = new System.Drawing.Point(986, 672);
+            this.txtHoraFin.Location = new System.Drawing.Point(986, 765);
             this.txtHoraFin.Name = "txtHoraFin";
             this.txtHoraFin.Size = new System.Drawing.Size(200, 20);
             this.txtHoraFin.TabIndex = 36;
+            // 
+            // btnCancelarTurno
+            // 
+            this.btnCancelarTurno.Location = new System.Drawing.Point(1337, 765);
+            this.btnCancelarTurno.Name = "btnCancelarTurno";
+            this.btnCancelarTurno.Size = new System.Drawing.Size(184, 23);
+            this.btnCancelarTurno.TabIndex = 37;
+            this.btnCancelarTurno.Text = "Cancelar Turno";
+            this.btnCancelarTurno.UseVisualStyleBackColor = true;
+            this.btnCancelarTurno.Click += new System.EventHandler(this.btnCancelarTurno_Click);
+            // 
+            // btnClienteAtendido
+            // 
+            this.btnClienteAtendido.Location = new System.Drawing.Point(1337, 818);
+            this.btnClienteAtendido.Name = "btnClienteAtendido";
+            this.btnClienteAtendido.Size = new System.Drawing.Size(184, 23);
+            this.btnClienteAtendido.TabIndex = 38;
+            this.btnClienteAtendido.Text = "Cliente Atendido";
+            this.btnClienteAtendido.UseVisualStyleBackColor = true;
+            this.btnClienteAtendido.Click += new System.EventHandler(this.btnClienteAtendido_Click);
+            // 
+            // btnNoAsistio
+            // 
+            this.btnNoAsistio.Location = new System.Drawing.Point(1337, 874);
+            this.btnNoAsistio.Name = "btnNoAsistio";
+            this.btnNoAsistio.Size = new System.Drawing.Size(184, 23);
+            this.btnNoAsistio.TabIndex = 39;
+            this.btnNoAsistio.Text = "No Asistio ";
+            this.btnNoAsistio.UseVisualStyleBackColor = true;
+            this.btnNoAsistio.Click += new System.EventHandler(this.btnNoAsistio_Click);
+            // 
+            // lblModificarFecha
+            // 
+            this.lblModificarFecha.AutoSize = true;
+            this.lblModificarFecha.Location = new System.Drawing.Point(575, 731);
+            this.lblModificarFecha.Name = "lblModificarFecha";
+            this.lblModificarFecha.Size = new System.Drawing.Size(166, 13);
+            this.lblModificarFecha.TabIndex = 40;
+            this.lblModificarFecha.Text = "Fecha y Hora de Inicio (Modificar)";
+            // 
+            // lblModificarHorFIn
+            // 
+            this.lblModificarHorFIn.AutoSize = true;
+            this.lblModificarHorFIn.Location = new System.Drawing.Point(1006, 727);
+            this.lblModificarHorFIn.Name = "lblModificarHorFIn";
+            this.lblModificarHorFIn.Size = new System.Drawing.Size(140, 13);
+            this.lblModificarHorFIn.TabIndex = 41;
+            this.lblModificarHorFIn.Text = "Fecha y Hora Fin (Modificar)";
+            // 
+            // btnModificarDefinitivo
+            // 
+            this.btnModificarDefinitivo.Location = new System.Drawing.Point(1337, 765);
+            this.btnModificarDefinitivo.Name = "btnModificarDefinitivo";
+            this.btnModificarDefinitivo.Size = new System.Drawing.Size(184, 23);
+            this.btnModificarDefinitivo.TabIndex = 42;
+            this.btnModificarDefinitivo.Text = "Modificar El Turno?";
+            this.btnModificarDefinitivo.UseVisualStyleBackColor = true;
+            this.btnModificarDefinitivo.Click += new System.EventHandler(this.btnModificarDefinitivo_Click);
+            // 
+            // btnLimpiarFecha
+            // 
+            this.btnLimpiarFecha.Location = new System.Drawing.Point(638, 95);
+            this.btnLimpiarFecha.Name = "btnLimpiarFecha";
+            this.btnLimpiarFecha.Size = new System.Drawing.Size(113, 23);
+            this.btnLimpiarFecha.TabIndex = 43;
+            this.btnLimpiarFecha.Text = "Limpiar Fecha";
+            this.btnLimpiarFecha.UseVisualStyleBackColor = true;
+            this.btnLimpiarFecha.Click += new System.EventHandler(this.btnLimpiarFecha_Click);
+            // 
+            // btnModificarServicio
+            // 
+            this.btnModificarServicio.Location = new System.Drawing.Point(1337, 918);
+            this.btnModificarServicio.Name = "btnModificarServicio";
+            this.btnModificarServicio.Size = new System.Drawing.Size(184, 23);
+            this.btnModificarServicio.TabIndex = 44;
+            this.btnModificarServicio.Text = "Modificar Servicio Del Cliente";
+            this.btnModificarServicio.UseVisualStyleBackColor = true;
+            this.btnModificarServicio.Click += new System.EventHandler(this.btnModificarServicio_Click);
+            // 
+            // btnModificarServicioDefinito
+            // 
+            this.btnModificarServicioDefinito.Location = new System.Drawing.Point(1337, 958);
+            this.btnModificarServicioDefinito.Name = "btnModificarServicioDefinito";
+            this.btnModificarServicioDefinito.Size = new System.Drawing.Size(184, 23);
+            this.btnModificarServicioDefinito.TabIndex = 45;
+            this.btnModificarServicioDefinito.Text = "Modificar servicio?";
+            this.btnModificarServicioDefinito.UseVisualStyleBackColor = true;
+         
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1645, 728);
+            this.ClientSize = new System.Drawing.Size(1645, 1009);
+            this.Controls.Add(this.btnModificarServicioDefinito);
+            this.Controls.Add(this.btnModificarServicio);
+            this.Controls.Add(this.btnLimpiarFecha);
+            this.Controls.Add(this.btnModificarDefinitivo);
+            this.Controls.Add(this.lblModificarHorFIn);
+            this.Controls.Add(this.lblModificarFecha);
+            this.Controls.Add(this.btnNoAsistio);
+            this.Controls.Add(this.btnClienteAtendido);
+            this.Controls.Add(this.btnCancelarTurno);
             this.Controls.Add(this.txtHoraFin);
             this.Controls.Add(this.txtHoraInicio);
             this.Controls.Add(this.btnModificarTurno);
@@ -441,6 +549,15 @@
         private System.Windows.Forms.Button btnModificarTurno;
         private System.Windows.Forms.TextBox txtHoraInicio;
         private System.Windows.Forms.TextBox txtHoraFin;
+        private System.Windows.Forms.Button btnCancelarTurno;
+        private System.Windows.Forms.Button btnClienteAtendido;
+        private System.Windows.Forms.Button btnNoAsistio;
+        private System.Windows.Forms.Label lblModificarFecha;
+        private System.Windows.Forms.Label lblModificarHorFIn;
+        private System.Windows.Forms.Button btnModificarDefinitivo;
+        private System.Windows.Forms.Button btnLimpiarFecha;
+        private System.Windows.Forms.Button btnModificarServicio;
+        private System.Windows.Forms.Button btnModificarServicioDefinito;
     }
 }
 
