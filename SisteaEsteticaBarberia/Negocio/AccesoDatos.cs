@@ -27,10 +27,10 @@ namespace Negocio
         {
 
 
-            conexion = new SqlConnection("Server=.\\SQLEXPRESS02;Database=EsteticaBarberiaDB;;Integrated Security=true;");
+           // conexion = new SqlConnection("Server=.\\SQLEXPRESS02;Database=EsteticaBarberiaDB;Integrated Security=true;");
+
+            conexion = new SqlConnection("Server=.;Database=EsteticaBarberiaDB;Integrated Security=true;");
             comando = new SqlCommand();
-
-
 
         }
 
