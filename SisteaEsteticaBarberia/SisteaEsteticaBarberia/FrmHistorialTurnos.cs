@@ -12,14 +12,14 @@ using System.Windows.Forms;
 
 namespace SisteaEsteticaBarberia
 {
-    public partial class FrmTurnos : Form
+    public partial class FrmHistorialTurnos : Form
     {
      private         TipoServicio TipoServicio;
 
      private   List<TipoServicio> ListaServicio = new List<TipoServicio>();
 
 
-        public FrmTurnos()
+        public FrmHistorialTurnos()
         {
             InitializeComponent();
         }
@@ -40,8 +40,7 @@ namespace SisteaEsteticaBarberia
         {
             TipoServicio = new TipoServicio();
 
-            TipoServicio.Servicio = txtNombreServicio.Text;
-            TipoServicio.PrecioServicio = decimal.Parse(txtPrecioServicio.Text);
+          
 
 
             ListaServicio.Add(TipoServicio);

@@ -95,6 +95,70 @@ namespace Negocio
 
         }
 
+        public void ModificarTitulo(Portafolio portafolio)
+        {
+
+            AccesoDatos accesoDatos=new AccesoDatos();
+
+            try
+            {
+                accesoDatos.SetearConsulta("update Portafolio set Titulo = @Titulo where IdPortafolio = @IdPortafolio");
+                accesoDatos.SetearParametro("@Titulo", portafolio.Titulo);
+                accesoDatos.SetearParametro("@IdPortafolio", portafolio.IdPortafolio);
+
+                accesoDatos.EjecutarAccion();
+
+
+
+
+
+
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally { accesoDatos.CerrarConexion(); }
+
+
+        }
+        public void ModificarImagen(Portafolio portafolio)
+        {    
+
+            AccesoDatos accesoDatos =new AccesoDatos();
+
+
+            try
+            {
+
+                accesoDatos.SetearConsulta("update Portafolio set UrlImagen = @UrlImagen where IdPortafolio = @IdPortafolio");
+                accesoDatos.SetearParametro("@UrlImagen", portafolio.UrlImagen);
+                accesoDatos.SetearParametro("@IdPortafolio", portafolio.IdPortafolio);
+
+                accesoDatos.EjecutarAccion();
+
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+
+                accesoDatos.CerrarConexion();
+
+
+            }
+
+
+
+
+        }
+
 
 
 

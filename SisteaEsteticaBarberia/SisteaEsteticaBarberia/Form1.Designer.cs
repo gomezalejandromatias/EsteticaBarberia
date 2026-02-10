@@ -451,7 +451,6 @@
             this.btnModificarServicioDefinito.TabIndex = 45;
             this.btnModificarServicioDefinito.Text = "Modificar servicio?";
             this.btnModificarServicioDefinito.UseVisualStyleBackColor = true;
-         
             // 
             // Form1
             // 

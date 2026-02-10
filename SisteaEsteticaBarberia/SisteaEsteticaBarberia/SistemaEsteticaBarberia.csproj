@@ -59,11 +59,11 @@
     <Compile Include="FrmPortafolio.Designer.cs">
       <DependentUpon>FrmPortafolio.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmTurnos.cs">
+    <Compile Include="FrmHistorialTurnos.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmTurnos.Designer.cs">
-      <DependentUpon>FrmTurnos.cs</DependentUpon>
+    <Compile Include="FrmHistorialTurnos.Designer.cs">
+      <DependentUpon>FrmHistorialTurnos.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -73,8 +73,8 @@
     <EmbeddedResource Include="FrmPortafolio.resx">
       <DependentUpon>FrmPortafolio.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmTurnos.resx">
-      <DependentUpon>FrmTurnos.cs</DependentUpon>
+    <EmbeddedResource Include="FrmHistorialTurnos.resx">
+      <DependentUpon>FrmHistorialTurnos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
