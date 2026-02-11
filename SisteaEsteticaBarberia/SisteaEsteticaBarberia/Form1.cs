@@ -101,7 +101,7 @@ namespace SisteaEsteticaBarberia
                         Inicio = t.Inicio,
                         Fin = t.Fin,
                         Estado = t.Estado,
-                        IdCliente = t.cliente.IdCliente,
+                        IdCliente = ct.Cliente.IdCliente,
                         Cliente = ct.Cliente.Nombre,
                         Telefono = ct.Cliente.Telefono,
                         Servicios = serviciosTexto,

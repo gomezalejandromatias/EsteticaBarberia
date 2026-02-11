@@ -58,6 +58,37 @@ namespace Negocio
 
         }
 
+        public void AgregarTipoServicio (TipoServicio tipoServicio)
+        {
+
+            AccesoDatos accesoDatos = new AccesoDatos();
+
+            try
+            {
+
+                accesoDatos.SetearConsulta("insert into TipoServicio (Servicio, PrecioServicio) values (@Servicio,@PrecioServicio)");
+
+                accesoDatos.SetearParametro("@Servicio",tipoServicio.Servicio);
+                accesoDatos.SetearParametro("@PrecioServicio", tipoServicio.PrecioServicio);
+                accesoDatos.EjecutarAccion();
+
+
+
+
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally { accesoDatos.CerrarConexion(); }
+
+
+
+
+        }
+
 
 
 

@@ -377,7 +377,7 @@
             // 
             // btnClienteAtendido
             // 
-            this.btnClienteAtendido.Location = new System.Drawing.Point(1337, 818);
+            this.btnClienteAtendido.Location = new System.Drawing.Point(1337, 816);
             this.btnClienteAtendido.Name = "btnClienteAtendido";
             this.btnClienteAtendido.Size = new System.Drawing.Size(184, 23);
             this.btnClienteAtendido.TabIndex = 38;
@@ -387,7 +387,7 @@
             // 
             // btnNoAsistio
             // 
-            this.btnNoAsistio.Location = new System.Drawing.Point(1337, 874);
+            this.btnNoAsistio.Location = new System.Drawing.Point(1337, 861);
             this.btnNoAsistio.Name = "btnNoAsistio";
             this.btnNoAsistio.Size = new System.Drawing.Size(184, 23);
             this.btnNoAsistio.TabIndex = 39;
@@ -435,7 +435,7 @@
             // 
             // btnModificarServicio
             // 
-            this.btnModificarServicio.Location = new System.Drawing.Point(1337, 918);
+            this.btnModificarServicio.Location = new System.Drawing.Point(1337, 920);
             this.btnModificarServicio.Name = "btnModificarServicio";
             this.btnModificarServicio.Size = new System.Drawing.Size(184, 23);
             this.btnModificarServicio.TabIndex = 44;

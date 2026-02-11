@@ -511,6 +511,140 @@ ORDER BY tg.IdTurnoGrupo, c.IdCliente, ts.IdTipoServicio
 
 
         }
+        public List<Turno> ListaHistorial(string estado = null)
+        {
+            Dictionary<int, Turno> turnosDic = new Dictionary<int, Turno>();
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.SetearConsulta(@"
+SELECT
+    tg.IdTurnoGrupo AS IdTurno,
+    tg.Inicio,
+    tg.Fin,
+    tg.Estado,
+
+    c.IdCliente,
+    c.Nombre,
+    c.Telefono,
+
+    ts.IdTipoServicio,
+    ts.Servicio       AS Servicio,
+    ts.PrecioServicio AS PrecioServicio
+FROM TurnoGrupo tg
+JOIN TurnoGrupoCliente tgc 
+    ON tgc.IdTurnoGrupo = tg.IdTurnoGrupo
+JOIN Cliente c 
+    ON c.IdCliente = tgc.IdCliente
+JOIN Servicio s 
+    ON s.IdTurnoGrupo = tg.IdTurnoGrupo 
+   AND s.IdCliente = c.IdCliente
+JOIN ServicioTipoServicio sts 
+    ON sts.IdServicio = s.IdServicio
+JOIN TipoServicio ts 
+    ON ts.IdTipoServicio = sts.IdTipoServicio
+WHERE tg.Activo = 1
+  AND (@Estado IS NULL OR tg.Estado = @Estado)
+ORDER BY tg.IdTurnoGrupo, c.IdCliente, ts.IdTipoServicio
+");
+
+                datos.SetearParametro("@Estado", (object)estado ?? DBNull.Value);
+                datos.EjecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    int idTurno = (int)datos.Lector["IdTurno"];
+                    int idCliente = (int)datos.Lector["IdCliente"];
+                    int idTipoServicio = (int)datos.Lector["IdTipoServicio"];
+
+                    // 1) Turno (no repetir)
+                    if (turnosDic.ContainsKey(idTurno) == false)
+                    {
+                        Turno t = new Turno();
+                        t.IdTurno = idTurno;
+                        t.Inicio = (DateTime)datos.Lector["Inicio"];
+                        t.Fin = (DateTime)datos.Lector["Fin"];
+                        t.Estado = (string)datos.Lector["Estado"];
+
+                        turnosDic.Add(idTurno, t);
+                    }
+
+                    Turno turno = turnosDic[idTurno];
+
+                    // 2) ClienteTurno (no repetir dentro del turno)
+                    ClienteTurno ctEncontrado = null;
+                    foreach (ClienteTurno ct in turno.clienteTurnos)
+                    {
+                        if (ct.Cliente.IdCliente == idCliente)
+                        {
+                            ctEncontrado = ct;
+                            break;
+                        }
+                    }
+
+                    if (ctEncontrado == null)
+                    {
+                        ctEncontrado = new ClienteTurno();
+                        ctEncontrado.Cliente.IdCliente = idCliente;
+                        ctEncontrado.Cliente.Nombre = (string)datos.Lector["Nombre"];
+                        ctEncontrado.Cliente.Telefono = (string)datos.Lector["Telefono"];
+                        ctEncontrado.Turno = turno;
+
+                        turno.clienteTurnos.Add(ctEncontrado);
+                    }
+
+                    // 3) Servicio contenedor (1 por cliente, para agrupar tipos)
+                    Servicio servicioContenedor;
+                    if (ctEncontrado.servicios.Count > 0)
+                    {
+                        servicioContenedor = ctEncontrado.servicios[0];
+                    }
+                    else
+                    {
+                        servicioContenedor = new Servicio();
+
+                        // por si tu clase Servicio NO inicializa la lista:
+                        if (servicioContenedor.tipoServicios == null)
+                            servicioContenedor.tipoServicios = new List<TipoServicio>();
+
+                        ctEncontrado.servicios.Add(servicioContenedor);
+                    }
+
+                    // 4) TipoServicio (no repetir dentro del servicioContenedor)
+                    TipoServicio tipo = null;
+                    foreach (TipoServicio x in servicioContenedor.tipoServicios)
+                    {
+                        if (x.IdTipoServicio == idTipoServicio)
+                        {
+                            tipo = x;
+                            break;
+                        }
+                    }
+
+                    if (tipo == null)
+                    {
+                        tipo = new TipoServicio();
+                        tipo.IdTipoServicio = idTipoServicio;
+                        tipo.Servicio = (string)datos.Lector["Servicio"];
+                        tipo.PrecioServicio = (decimal)datos.Lector["PrecioServicio"];
+
+                        servicioContenedor.tipoServicios.Add(tipo);
+                    }
+                }
+
+                return turnosDic.Values.ToList();
+            }
+            catch
+            {
+                throw;
+            }
+            finally
+            {
+                datos.CerrarConexion();
+            }
+        }
+
 
 
 
