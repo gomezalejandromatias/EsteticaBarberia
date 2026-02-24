@@ -466,23 +466,23 @@ ORDER BY tg.IdTurnoGrupo, c.IdCliente, ts.IdTipoServicio
 
                     accesoDatos.EjecutarAccion();
 
+                    // BORRAR TODOS los tipos anteriores
+                    accesoDatos.SetearConsulta("DELETE FROM ServicioTipoServicio WHERE IdServicio=@IdServicio");
+                    accesoDatos.SetearParametro("@IdServicio", idServicio);
+                    accesoDatos.EjecutarAccion();
 
                     foreach (TipoServicio item in clienteTurno.servicios[0].tipoServicios)
                     {
                         accesoDatos.SetearConsulta(
-             "update ServicioTipoServicio set IdTipoServicio=@IdTipoServicio,PrecioAplicado=@PrecioAplicado,Cantidad=@Cantidad where IdServicio=@IdServicio");
-           
-         
-                        accesoDatos.SetearParametro("@IdServicio",idServicio);
+                            "INSERT INTO ServicioTipoServicio (IdServicio, IdTipoServicio, PrecioAplicado) " +
+                            "VALUES (@IdServicio, @IdTipoServicio, @PrecioAplicado)"
+                        );
+
+                        accesoDatos.SetearParametro("@IdServicio", idServicio);
                         accesoDatos.SetearParametro("@IdTipoServicio", item.IdTipoServicio);
                         accesoDatos.SetearParametro("@PrecioAplicado", item.PrecioServicio);
 
                         accesoDatos.EjecutarAccion();
-
-
-
-
-
                     }
 
 

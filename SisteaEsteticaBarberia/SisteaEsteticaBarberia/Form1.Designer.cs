@@ -54,7 +54,6 @@
             this.dtpHoraInicio = new System.Windows.Forms.DateTimePicker();
             this.dtpHoraFin = new System.Windows.Forms.DateTimePicker();
             this.btnSeleccionServicio = new System.Windows.Forms.Button();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.lblPrecio = new System.Windows.Forms.Label();
             this.txtPrecioServicio = new System.Windows.Forms.TextBox();
             this.lblSignoPeso = new System.Windows.Forms.Label();
@@ -71,8 +70,15 @@
             this.btnLimpiarFecha = new System.Windows.Forms.Button();
             this.btnModificarServicio = new System.Windows.Forms.Button();
             this.btnModificarServicioDefinito = new System.Windows.Forms.Button();
+            this.btnModificar = new System.Windows.Forms.Button();
+            this.btnModificarClieneDefinitivamente = new System.Windows.Forms.Button();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.historialDeTurnosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.portafolioDeImagenesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.productosYServiciosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVerTurno)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCliente)).BeginInit();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblTitulo
@@ -150,7 +156,7 @@
             // 
             // btnAgregarCliente
             // 
-            this.btnAgregarCliente.Location = new System.Drawing.Point(951, 518);
+            this.btnAgregarCliente.Location = new System.Drawing.Point(861, 409);
             this.btnAgregarCliente.Name = "btnAgregarCliente";
             this.btnAgregarCliente.Size = new System.Drawing.Size(179, 23);
             this.btnAgregarCliente.TabIndex = 9;
@@ -170,7 +176,10 @@
             // 
             this.dgvVerTurno.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvVerTurno.Location = new System.Drawing.Point(199, 139);
+            this.dgvVerTurno.MultiSelect = false;
             this.dgvVerTurno.Name = "dgvVerTurno";
+            this.dgvVerTurno.ReadOnly = true;
+            this.dgvVerTurno.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvVerTurno.Size = new System.Drawing.Size(601, 170);
             this.dgvVerTurno.TabIndex = 12;
             this.dgvVerTurno.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvVerTurno_CellContentClick);
@@ -178,7 +187,7 @@
             // lblTurno
             // 
             this.lblTurno.AutoSize = true;
-            this.lblTurno.Location = new System.Drawing.Point(457, 328);
+            this.lblTurno.Location = new System.Drawing.Point(342, 336);
             this.lblTurno.Name = "lblTurno";
             this.lblTurno.Size = new System.Drawing.Size(81, 13);
             this.lblTurno.TabIndex = 13;
@@ -249,7 +258,7 @@
             // 
             this.dgvCliente.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvCliente.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dgvCliente.Location = new System.Drawing.Point(951, 139);
+            this.dgvCliente.Location = new System.Drawing.Point(947, 132);
             this.dgvCliente.Name = "dgvCliente";
             this.dgvCliente.Size = new System.Drawing.Size(438, 177);
             this.dgvCliente.TabIndex = 23;
@@ -298,14 +307,6 @@
             this.btnSeleccionServicio.UseVisualStyleBackColor = true;
             this.btnSeleccionServicio.Click += new System.EventHandler(this.btnSeleccionServicio_Click);
             // 
-            // menuStrip1
-            // 
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1645, 24);
-            this.menuStrip1.TabIndex = 29;
-            this.menuStrip1.Text = "menuStrip1";
-            // 
             // lblPrecio
             // 
             this.lblPrecio.AutoSize = true;
@@ -343,7 +344,7 @@
             // 
             // btnModificarTurno
             // 
-            this.btnModificarTurno.Location = new System.Drawing.Point(1337, 726);
+            this.btnModificarTurno.Location = new System.Drawing.Point(1540, 672);
             this.btnModificarTurno.Name = "btnModificarTurno";
             this.btnModificarTurno.Size = new System.Drawing.Size(184, 23);
             this.btnModificarTurno.TabIndex = 34;
@@ -367,7 +368,7 @@
             // 
             // btnCancelarTurno
             // 
-            this.btnCancelarTurno.Location = new System.Drawing.Point(1337, 765);
+            this.btnCancelarTurno.Location = new System.Drawing.Point(1337, 746);
             this.btnCancelarTurno.Name = "btnCancelarTurno";
             this.btnCancelarTurno.Size = new System.Drawing.Size(184, 23);
             this.btnCancelarTurno.TabIndex = 37;
@@ -377,7 +378,7 @@
             // 
             // btnClienteAtendido
             // 
-            this.btnClienteAtendido.Location = new System.Drawing.Point(1337, 816);
+            this.btnClienteAtendido.Location = new System.Drawing.Point(1337, 819);
             this.btnClienteAtendido.Name = "btnClienteAtendido";
             this.btnClienteAtendido.Size = new System.Drawing.Size(184, 23);
             this.btnClienteAtendido.TabIndex = 38;
@@ -387,7 +388,7 @@
             // 
             // btnNoAsistio
             // 
-            this.btnNoAsistio.Location = new System.Drawing.Point(1337, 861);
+            this.btnNoAsistio.Location = new System.Drawing.Point(1554, 819);
             this.btnNoAsistio.Name = "btnNoAsistio";
             this.btnNoAsistio.Size = new System.Drawing.Size(184, 23);
             this.btnNoAsistio.TabIndex = 39;
@@ -415,11 +416,11 @@
             // 
             // btnModificarDefinitivo
             // 
-            this.btnModificarDefinitivo.Location = new System.Drawing.Point(1337, 765);
+            this.btnModificarDefinitivo.Location = new System.Drawing.Point(1554, 907);
             this.btnModificarDefinitivo.Name = "btnModificarDefinitivo";
             this.btnModificarDefinitivo.Size = new System.Drawing.Size(184, 23);
             this.btnModificarDefinitivo.TabIndex = 42;
-            this.btnModificarDefinitivo.Text = "Modificar El Turno?";
+            this.btnModificarDefinitivo.Text = "Modificar La Fecha El Turno?";
             this.btnModificarDefinitivo.UseVisualStyleBackColor = true;
             this.btnModificarDefinitivo.Click += new System.EventHandler(this.btnModificarDefinitivo_Click);
             // 
@@ -435,7 +436,7 @@
             // 
             // btnModificarServicio
             // 
-            this.btnModificarServicio.Location = new System.Drawing.Point(1337, 920);
+            this.btnModificarServicio.Location = new System.Drawing.Point(1554, 746);
             this.btnModificarServicio.Name = "btnModificarServicio";
             this.btnModificarServicio.Size = new System.Drawing.Size(184, 23);
             this.btnModificarServicio.TabIndex = 44;
@@ -445,18 +446,72 @@
             // 
             // btnModificarServicioDefinito
             // 
-            this.btnModificarServicioDefinito.Location = new System.Drawing.Point(1337, 958);
+            this.btnModificarServicioDefinito.Location = new System.Drawing.Point(1554, 907);
             this.btnModificarServicioDefinito.Name = "btnModificarServicioDefinito";
             this.btnModificarServicioDefinito.Size = new System.Drawing.Size(184, 23);
             this.btnModificarServicioDefinito.TabIndex = 45;
             this.btnModificarServicioDefinito.Text = "Modificar servicio?";
             this.btnModificarServicioDefinito.UseVisualStyleBackColor = true;
+            this.btnModificarServicioDefinito.Click += new System.EventHandler(this.btnModificarServicioDefinito_Click);
+            // 
+            // btnModificar
+            // 
+            this.btnModificar.Location = new System.Drawing.Point(861, 516);
+            this.btnModificar.Name = "btnModificar";
+            this.btnModificar.Size = new System.Drawing.Size(165, 23);
+            this.btnModificar.TabIndex = 46;
+            this.btnModificar.Text = "Modificar Datos del cliente";
+            this.btnModificar.UseVisualStyleBackColor = true;
+            this.btnModificar.Click += new System.EventHandler(this.btnModificar_Click);
+            // 
+            // btnModificarClieneDefinitivamente
+            // 
+            this.btnModificarClieneDefinitivamente.Location = new System.Drawing.Point(1077, 519);
+            this.btnModificarClieneDefinitivamente.Name = "btnModificarClieneDefinitivamente";
+            this.btnModificarClieneDefinitivamente.Size = new System.Drawing.Size(244, 23);
+            this.btnModificarClieneDefinitivamente.TabIndex = 47;
+            this.btnModificarClieneDefinitivamente.Text = "Seguro Que Desea Modificar Los Datos?";
+            this.btnModificarClieneDefinitivamente.UseVisualStyleBackColor = true;
+            this.btnModificarClieneDefinitivamente.Click += new System.EventHandler(this.btnModificarClieneDefinitivamente_Click);
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.historialDeTurnosToolStripMenuItem,
+            this.portafolioDeImagenesToolStripMenuItem,
+            this.productosYServiciosToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(1804, 24);
+            this.menuStrip1.TabIndex = 48;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // historialDeTurnosToolStripMenuItem
+            // 
+            this.historialDeTurnosToolStripMenuItem.Name = "historialDeTurnosToolStripMenuItem";
+            this.historialDeTurnosToolStripMenuItem.Size = new System.Drawing.Size(120, 20);
+            this.historialDeTurnosToolStripMenuItem.Text = "Historial De Turnos";
+            // 
+            // portafolioDeImagenesToolStripMenuItem
+            // 
+            this.portafolioDeImagenesToolStripMenuItem.Name = "portafolioDeImagenesToolStripMenuItem";
+            this.portafolioDeImagenesToolStripMenuItem.Size = new System.Drawing.Size(142, 20);
+            this.portafolioDeImagenesToolStripMenuItem.Text = "Portafolio De Imagenes";
+            this.portafolioDeImagenesToolStripMenuItem.Click += new System.EventHandler(this.portafolioDeImagenesToolStripMenuItem_Click);
+            // 
+            // productosYServiciosToolStripMenuItem
+            // 
+            this.productosYServiciosToolStripMenuItem.Name = "productosYServiciosToolStripMenuItem";
+            this.productosYServiciosToolStripMenuItem.Size = new System.Drawing.Size(131, 20);
+            this.productosYServiciosToolStripMenuItem.Text = "Productos y Servicios";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1645, 1009);
+            this.ClientSize = new System.Drawing.Size(1804, 1009);
+            this.Controls.Add(this.btnModificarClieneDefinitivamente);
+            this.Controls.Add(this.btnModificar);
             this.Controls.Add(this.btnModificarServicioDefinito);
             this.Controls.Add(this.btnModificarServicio);
             this.Controls.Add(this.btnLimpiarFecha);
@@ -500,13 +555,14 @@
             this.Controls.Add(this.lblDni);
             this.Controls.Add(this.lblTitulo);
             this.Controls.Add(this.menuStrip1);
-            this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "Form1";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvVerTurno)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCliente)).EndInit();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -540,7 +596,6 @@
         private System.Windows.Forms.DateTimePicker dtpHoraInicio;
         private System.Windows.Forms.DateTimePicker dtpHoraFin;
         private System.Windows.Forms.Button btnSeleccionServicio;
-        private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.Label lblPrecio;
         private System.Windows.Forms.TextBox txtPrecioServicio;
         private System.Windows.Forms.Label lblSignoPeso;
@@ -557,6 +612,12 @@
         private System.Windows.Forms.Button btnLimpiarFecha;
         private System.Windows.Forms.Button btnModificarServicio;
         private System.Windows.Forms.Button btnModificarServicioDefinito;
+        private System.Windows.Forms.Button btnModificar;
+        private System.Windows.Forms.Button btnModificarClieneDefinitivamente;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem historialDeTurnosToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem portafolioDeImagenesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem productosYServiciosToolStripMenuItem;
     }
 }
 

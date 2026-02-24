@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Dominio;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using Dominio;
 
 namespace Negocio
 {
@@ -100,6 +101,44 @@ namespace Negocio
                 throw ex;
             }
             finally { accesoDatos.CerrarConexion(); }
+
+
+
+        }
+
+        public void ModificarCliente(Cliente cliente) 
+        {
+            AccesoDatos accesoDatos = new AccesoDatos();
+
+            
+            try
+            {
+                accesoDatos.SetearConsulta("update Cliente set Nombre = @Nombre,Dni= @Dni,Telefono = @Telefono,Email= @Email where IdCliente = @IdCliente");
+
+                accesoDatos.SetearParametro("@Nombre", cliente.Nombre);
+                accesoDatos.SetearParametro("@Dni", cliente.Dni);
+                accesoDatos.SetearParametro("@Telefono", cliente.Telefono);
+                accesoDatos.SetearParametro("@Email", cliente.Email);
+                accesoDatos.SetearParametro("@IdCliente", cliente.IdCliente);
+
+                accesoDatos.EjecutarAccion();
+
+
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally 
+            {
+
+                accesoDatos.CerrarConexion();
+            
+            }
+
+
 
 
 
