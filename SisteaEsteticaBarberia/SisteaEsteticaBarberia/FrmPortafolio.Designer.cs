@@ -44,6 +44,7 @@
             this.btnTituloImagen = new System.Windows.Forms.Button();
             this.btnModificarImagen = new System.Windows.Forms.Button();
             this.btnModicarDefinitivoImagen = new System.Windows.Forms.Button();
+            this.btnModificarDefinitivoTitulo = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvImagen)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbImagen)).BeginInit();
             this.SuspendLayout();
@@ -120,7 +121,7 @@
             // 
             // btnModificarTitulo
             // 
-            this.btnModificarTitulo.Location = new System.Drawing.Point(814, 264);
+            this.btnModificarTitulo.Location = new System.Drawing.Point(814, 262);
             this.btnModificarTitulo.Name = "btnModificarTitulo";
             this.btnModificarTitulo.Size = new System.Drawing.Size(178, 23);
             this.btnModificarTitulo.TabIndex = 8;
@@ -187,7 +188,7 @@
             // 
             // btnModicarDefinitivoImagen
             // 
-            this.btnModicarDefinitivoImagen.Location = new System.Drawing.Point(814, 376);
+            this.btnModicarDefinitivoImagen.Location = new System.Drawing.Point(1058, 199);
             this.btnModicarDefinitivoImagen.Name = "btnModicarDefinitivoImagen";
             this.btnModicarDefinitivoImagen.Size = new System.Drawing.Size(178, 23);
             this.btnModicarDefinitivoImagen.TabIndex = 15;
@@ -195,11 +196,22 @@
             this.btnModicarDefinitivoImagen.UseVisualStyleBackColor = true;
             this.btnModicarDefinitivoImagen.Click += new System.EventHandler(this.btnModicarDefinitivoImagen_Click);
             // 
+            // btnModificarDefinitivoTitulo
+            // 
+            this.btnModificarDefinitivoTitulo.Location = new System.Drawing.Point(1058, 262);
+            this.btnModificarDefinitivoTitulo.Name = "btnModificarDefinitivoTitulo";
+            this.btnModificarDefinitivoTitulo.Size = new System.Drawing.Size(178, 23);
+            this.btnModificarDefinitivoTitulo.TabIndex = 16;
+            this.btnModificarDefinitivoTitulo.Text = "Modificar Titulo?";
+            this.btnModificarDefinitivoTitulo.UseVisualStyleBackColor = true;
+            this.btnModificarDefinitivoTitulo.Click += new System.EventHandler(this.btnModificarDefinitivoTitulo_Click);
+            // 
             // FrmPortafolio
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1410, 937);
+            this.Controls.Add(this.btnModificarDefinitivoTitulo);
             this.Controls.Add(this.btnModicarDefinitivoImagen);
             this.Controls.Add(this.btnModificarImagen);
             this.Controls.Add(this.btnTituloImagen);
@@ -245,5 +257,6 @@
         private System.Windows.Forms.Button btnTituloImagen;
         private System.Windows.Forms.Button btnModificarImagen;
         private System.Windows.Forms.Button btnModicarDefinitivoImagen;
+        private System.Windows.Forms.Button btnModificarDefinitivoTitulo;
     }
 }

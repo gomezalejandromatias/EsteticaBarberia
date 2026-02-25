@@ -267,26 +267,7 @@ namespace SisteaEsteticaBarberia
                 // =========================
                 // VALIDACIONES BÁSICAS
                 // =========================
-                if (string.IsNullOrWhiteSpace(txtDni.Text))
-                {
-                    MessageBox.Show("Ingrese el DNI.");
-                    txtDni.Focus();
-                    return;
-                }
-
-                if (string.IsNullOrWhiteSpace(txtNombre.Text))
-                {
-                    MessageBox.Show("Ingrese el Nombre.");
-                    txtNombre.Focus();
-                    return;
-                }
-
-                if (string.IsNullOrWhiteSpace(txtTelefono.Text))
-                {
-                    MessageBox.Show("Ingrese el Teléfono.");
-                    txtTelefono.Focus();
-                    return;
-                }
+              
 
                 // Si querés email opcional, no lo valides. Si lo querés obligatorio:
                 // if (string.IsNullOrWhiteSpace(txtEmail.Text)) { ... }
@@ -359,11 +340,11 @@ namespace SisteaEsteticaBarberia
                 nuevo.TotalServicio = total;
 
                 // Cliente
-                ClienteTurno.Cliente.Dni = txtDni.Text.Trim();
-                ClienteTurno.Cliente.Nombre = txtNombre.Text.Trim();
-                ClienteTurno.Cliente.Email = txtEmail.Text.Trim();
-                ClienteTurno.Cliente.Telefono = txtTelefono.Text.Trim();
                 ClienteTurno.Cliente.IdCliente = SeleccionarIdCliente.IdCliente;
+                ClienteTurno.Cliente.Dni = SeleccionarIdCliente.Dni;
+                ClienteTurno.Cliente.Nombre = SeleccionarIdCliente.Nombre;
+                ClienteTurno.Cliente.Email = SeleccionarIdCliente.Email;
+                ClienteTurno.Cliente.Telefono = SeleccionarIdCliente.Telefono;
 
                 // Servicio
                 ClienteTurno.servicios.Add(nuevo);
@@ -412,6 +393,11 @@ namespace SisteaEsteticaBarberia
                 // throw;
             }
 
+            txtDni.ReadOnly = false;
+            txtNombre.ReadOnly = false;
+            txtEmail.ReadOnly = false;
+            txtTelefono.ReadOnly = false;
+
 
         }
 
@@ -446,7 +432,50 @@ namespace SisteaEsteticaBarberia
 
         private void btnSeleccionClliente_Click(object sender, EventArgs e)
         {
-            SeleccionarIdCliente = (Cliente)dgvCliente.CurrentRow.DataBoundItem;
+            if (dgvCliente.CurrentRow == null)
+            {
+                MessageBox.Show("Seleccione un cliente.");
+                return;
+            }
+
+            if (dgvCliente.CurrentRow.IsNewRow)
+            {
+                MessageBox.Show("Seleccione un cliente válido.");
+                return;
+            }
+
+            var item = dgvCliente.CurrentRow.DataBoundItem;
+            if (item == null)
+            {
+                MessageBox.Show("No hay un cliente asociado a la fila seleccionada.");
+                return;
+            }
+
+            Cliente cliente = item as Cliente;
+            if (cliente == null)
+            {
+                MessageBox.Show("La fila seleccionada no corresponde a un Cliente.");
+                return;
+            }
+
+            if (cliente.IdCliente <= 0)
+            {
+                MessageBox.Show("El cliente seleccionado tiene un ID inválido.");
+                return;
+            }
+
+            SeleccionarIdCliente = cliente;
+
+            // (Opcional) Mostrar datos en los txt y bloquear edición
+            txtDni.Text = cliente.Dni;
+            txtNombre.Text = cliente.Nombre;
+            txtEmail.Text = cliente.Email;
+            txtTelefono.Text = cliente.Telefono;
+
+            txtDni.ReadOnly = true;
+            txtNombre.ReadOnly = true;
+            txtEmail.ReadOnly = true;
+            txtTelefono.ReadOnly = true;
 
 
 
@@ -524,13 +553,20 @@ namespace SisteaEsteticaBarberia
                 return;
             }
 
-            TurnoListaDto modificarturno =
+             modificarturno =
                 (TurnoListaDto)dgvVerTurno.SelectedRows[0].DataBoundItem;
 
             if (modificarturno == null)
             {
                 MessageBox.Show("Error al obtener el turno.");
                 return;
+            }
+
+            if (modificarturno.Estado == "Termiando" || modificarturno.Estado == "No Asistio")
+            {
+                MessageBox.Show("No Se puede Cambiar El Estado a Un Turno Terminado o Que No Asistio");
+
+
             }
 
             TurnoNegocio turnoNegocio = new TurnoNegocio();
@@ -572,8 +608,15 @@ namespace SisteaEsteticaBarberia
                 return;
             }
 
-            TurnoListaDto modificarturno =
+             modificarturno =
                 (TurnoListaDto)dgvVerTurno.SelectedRows[0].DataBoundItem;
+
+            if(modificarturno.Estado == "Termiando" || modificarturno.Estado == "No Asistio")
+            {
+                MessageBox.Show("No Se puede Cambiar El Estado a Un Turno Terminado o Que No Asistio");
+
+                return;
+            }
 
             if (modificarturno == null)
             {
@@ -632,12 +675,27 @@ namespace SisteaEsteticaBarberia
                 return;
             }
 
-            TurnoListaDto modificarturno =
+             modificarturno =
                 (TurnoListaDto)dgvVerTurno.SelectedRows[0].DataBoundItem;
 
             if (modificarturno == null)
             {
                 MessageBox.Show("Error al obtener el turno.");
+                return;
+            }
+            DateTime ahora = DateTime.Now;
+
+            // Si todavía no llegó la hora de inicio, no puede estar atendido
+            if (ahora < modificarturno.Inicio)
+            {
+                MessageBox.Show("No se puede marcar como No Asistio antes del horario de inicio del turno.");
+                return;
+            }
+
+            if (modificarturno.Estado == "Termiando" || modificarturno.Estado == "No Asistio")
+            {
+                MessageBox.Show("No Se puede Cambiar El Estado a Un Turno Terminado o Que No Asistio");
+
                 return;
             }
 
@@ -874,6 +932,14 @@ namespace SisteaEsteticaBarberia
             {
                 MessageBox.Show("Error al obtener el turno.");
                 return;
+            }
+
+
+            if (modificarturno.Estado == "Termiando" || modificarturno.Estado == "No Asistio")
+            {
+                MessageBox.Show("No Se puede Cambiar El Estado a Un Turno Terminado o Que No Asistio");
+
+
             }
 
 

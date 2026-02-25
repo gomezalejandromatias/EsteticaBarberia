@@ -15,7 +15,7 @@ namespace SisteaEsteticaBarberia
 {
     public partial class FrmPortafolio : Form
     {
-         Portafolio portafolio = new Portafolio();
+        Portafolio portafolio = new Portafolio();
         Portafolio Seleccionar = new Portafolio();
         List<Portafolio> listafiltrada;
 
@@ -39,12 +39,12 @@ namespace SisteaEsteticaBarberia
             try
             {
 
-            portafolio.Titulo = txtTitulo.Text;
+                portafolio.Titulo = txtTitulo.Text;
 
-            portafolio.UrlImagen = txtUrlImagen.Text;
+                portafolio.UrlImagen = txtUrlImagen.Text;
 
 
-            portafolioNegocio.AgregarImagen(portafolio);
+                portafolioNegocio.AgregarImagen(portafolio);
 
                 MessageBox.Show("bien");
             }
@@ -66,7 +66,7 @@ namespace SisteaEsteticaBarberia
 
         private void FrmPortafolio_Load(object sender, EventArgs e)
         {
-
+            btnModificarDefinitivoTitulo.Visible = false;
             CargarGrillImagen();
 
             btnTituloImagen.Visible = false;
@@ -96,8 +96,8 @@ namespace SisteaEsteticaBarberia
         private void pbImagen_Click(object sender, EventArgs e)
         {
 
-  
-              
+
+
 
 
 
@@ -126,17 +126,18 @@ namespace SisteaEsteticaBarberia
 
             var lista = portafolioNegocio.ListaPortafolio();
 
-            if(filtro!= ""){
-            
-            
-                  listafiltrada = lista
-             .Where(x => x.Titulo.ToLower().Contains(filtro.ToLower()))
-                  .ToList();
-            
-            
+            if (filtro != "")
+            {
+
+
+                listafiltrada = lista
+           .Where(x => x.Titulo.ToLower().Contains(filtro.ToLower()))
+                .ToList();
+
+
             }
 
-            else { listafiltrada = lista;   }
+            else { listafiltrada = lista; }
 
 
 
@@ -209,10 +210,12 @@ namespace SisteaEsteticaBarberia
             txtTitulo.Text = Seleccionar.Titulo;
 
             txtUrlImagen.Enabled = false;
-            
+
             btnTituloImagen.Visible = true;
 
+            btnElegirImagenPc.Enabled = false;
 
+            btnModificarDefinitivoTitulo.Visible = true;
 
 
         }
@@ -266,10 +269,10 @@ namespace SisteaEsteticaBarberia
             btnAgregarImagen.Visible = false;
             btnEliminarImagen.Visible = false;
 
-           // btnModicarDefinitivoImagen.Visible = false;
+            // btnModicarDefinitivoImagen.Visible = false;
             btnModificarImagen.Visible = false;
 
-           
+
 
 
 
@@ -281,8 +284,9 @@ namespace SisteaEsteticaBarberia
             btnAgregarImagen.Visible = true;
             btnEliminarImagen.Visible = true;
 
-          //  btnModicarDefinitivoImagen.Visible = true;
+            //  btnModicarDefinitivoImagen.Visible = true;
             btnModificarImagen.Visible = true;
+            btnModificarTitulo.Visible = true;
 
 
 
@@ -301,17 +305,17 @@ namespace SisteaEsteticaBarberia
 
             OcultarBotones();
 
-            
+            btnModificarTitulo.Visible = false;
             txtTitulo.Enabled = false;
-            
-            
+
+
 
 
         }
 
         private void btnModicarDefinitivoImagen_Click(object sender, EventArgs e)
         {
-             PortafolioNegocio portafolioNegocio = new PortafolioNegocio();
+            PortafolioNegocio portafolioNegocio = new PortafolioNegocio();
 
             int id = Seleccionar.IdPortafolio;
 
@@ -327,7 +331,7 @@ namespace SisteaEsteticaBarberia
 
                     portafolioNegocio.ModificarImagen(Seleccionar);
 
-                     MessageBox.Show("Bien");
+                    MessageBox.Show("Bien");
                 }
 
 
@@ -348,6 +352,60 @@ namespace SisteaEsteticaBarberia
             txtTitulo.Enabled = true;
             CargarGrillImagen();
             txtUrlImagen.Text = "";
+        }
+
+        private void btnModificarDefinitivoTitulo_Click(object sender, EventArgs e)
+        {
+
+            PortafolioNegocio portafolioNegocio = new PortafolioNegocio();
+
+
+
+
+            try
+            {
+
+                DialogResult respuesta = MessageBox.Show("Desea Modificar El Titulo De La Imagen?", "Modificacion", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                if (respuesta == DialogResult.Yes)
+                {
+                    Seleccionar.Titulo = txtTitulo.Text;
+                   
+
+                    portafolioNegocio.ModificarTitulo(Seleccionar);
+
+                    MessageBox.Show("Bien");
+                }
+
+
+
+
+
+
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+            txtTitulo.Text = "";
+
+            txtUrlImagen.Enabled = true;
+
+            btnTituloImagen.Visible = false;
+
+            btnElegirImagenPc.Enabled = true;
+
+            btnModificarDefinitivoTitulo.Visible = false;
+
+            CargarGrillImagen();
+            Limpiar();
+
+            txtTitulo.Focus();
+
+
         }
     }
 }

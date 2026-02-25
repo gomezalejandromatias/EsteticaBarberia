@@ -446,7 +446,7 @@
             // 
             // btnModificarServicioDefinito
             // 
-            this.btnModificarServicioDefinito.Location = new System.Drawing.Point(1554, 907);
+            this.btnModificarServicioDefinito.Location = new System.Drawing.Point(1337, 907);
             this.btnModificarServicioDefinito.Name = "btnModificarServicioDefinito";
             this.btnModificarServicioDefinito.Size = new System.Drawing.Size(184, 23);
             this.btnModificarServicioDefinito.TabIndex = 45;
