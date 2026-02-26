@@ -16,7 +16,7 @@ namespace SisteaEsteticaBarberia
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FrmPortafolio());
+            Application.Run(new FrmTurnoGrupal());
         }
     }
 }

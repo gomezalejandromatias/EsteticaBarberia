@@ -71,6 +71,12 @@
     <Compile Include="FrmProductosServicios.Designer.cs">
       <DependentUpon>FrmProductosServicios.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmTurnoGrupal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmTurnoGrupal.Designer.cs">
+      <DependentUpon>FrmTurnoGrupal.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
@@ -84,6 +90,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmProductosServicios.resx">
       <DependentUpon>FrmProductosServicios.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmTurnoGrupal.resx">
+      <DependentUpon>FrmTurnoGrupal.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
